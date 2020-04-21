@@ -1,21 +1,21 @@
 .register-screen {
-		display: flex;
-		flex: 1;
-		align-items: center;
-		justify-content: center;
-		height: 100vh;
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
 }   
 
 .register-screen .landing-intro-screen .signin-left {
-		max-height: 488px;
+    max-height: 488px;
 }
 
 .register-box {
-		background-color: white;
-		max-width: 900px;
-		flex: 1;
-		border-radius: 10px;
-		box-shadow: 0 0 100px rgba(0, 0, 0, 0.08);
-		overflow: hidden;
+    background-color: white;
+    max-width: 900px;
+    flex: 1;
+    border-radius: 10px;
+    box-shadow: 0 0 100px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
 }
 
