@@ -1,29 +1,29 @@
 body {
-	background-color: #f0f2f5 !important;
+		background-color: #f0f2f5 !important;
 }
 
 .login-screen {
-    display: flex;
-    flex: 1;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
+		display: flex;
+		flex: 1;
+		align-items: center;
+		justify-content: center;
+		height: 100vh;
 }   
 
 .login-screen .landing-intro-screen .signin-left {
-    max-height: 360px;
+		max-height: 360px;
 }
 
 .login-box {
-	background-color: white;
-    max-width: 800px;
-    flex: 1;
-    border-radius: 10px;
-    box-shadow: 0 0 100px rgba(0, 0, 0, 0.08);
-    overflow: hidden;
+		background-color: white;
+		max-width: 800px;
+		flex: 1;
+		border-radius: 10px;
+		box-shadow: 0 0 100px rgba(0, 0, 0, 0.08);
+		overflow: hidden;
 }
 
 .login-form-button {
-	width: 100%;
+		width: 100%;
 }
 
