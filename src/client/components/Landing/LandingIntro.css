@@ -1,0 +1,30 @@
+.landing-intro-screen {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+}
+
+.landing-intro-screen .signin-left {
+	position: relative;
+	z-index: 1;
+	background: rgba(0,0,0,0.5);
+	height: 100vh;
+	flex: 1;
+}
+
+.landing-intro-screen .signin-left a,
+.landing-intro-screen .signin-left p {
+	color: white;
+} 
+
+.landing-intro-screen .landingintro-background {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0.8;
+}

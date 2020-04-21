@@ -111,7 +111,7 @@ export class Dashboard extends Component {
 
     return (
       <div style={{ display: 'flex', justifyContent: 'center'}}>
-        {content}
+         { /* content */}
       </div>
     );
   }

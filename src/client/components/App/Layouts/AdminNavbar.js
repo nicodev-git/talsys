@@ -27,18 +27,30 @@ class AdminNavbar extends Component {
                 <span>Dashboard</span>
               </Link>
             </li>
+
+            <li
+              className={classnames('nav-item', {
+                active: this.props.location.pathname === '/requests'
+              })}
+            >
+              <Link className="nav-link" to="/requests">
+                <i className="icon ion-ios-browsers-outline"/>
+                <span>Requests</span>
+              </Link>
+            </li>
+           
             
             <li
               className={classnames('nav-item', {
-                active: this.props.location.pathname === '/logs'
+                active: this.props.location.pathname === '/users'
               })}
             >
-              <Link className="nav-link" to="/logs">
+              <Link className="nav-link" to="/users">
                 <i className="icon ion-ios-browsers-outline"/>
-                <span>Logs</span>
+                <span>Users</span>
               </Link>
             </li>
-            
+           
             <li
               className={classnames('nav-item', {
                 active: this.props.location.pathname === '/contacts'
@@ -46,32 +58,34 @@ class AdminNavbar extends Component {
             >
               <Link className="nav-link" to="/contacts">
                 <i className="icon ion-ios-book-outline"/>
-                <span>Contacts</span>
+                <span>Support</span>
               </Link>
             </li>
-            <li
-              className={classnames('nav-item with-sub', {
-                active: this.props.location.pathname === '/forms'
-              })}
-            >
-              <Link className="nav-link" to="/forms">
-                <i className="icon ion-ios-gear-outline"/>
-                <span>Forms</span>
-              </Link>
-              <div className="sub-item">
-                <ul>
-                  <li>
-                    <Link to="/forms">All Forms</Link>
-                  </li>
-                  <li>
-                    <Link to="/forms/build-forms">Build Forms</Link>
-                  </li>
-                  <li>
-                    <Link to="/forms/upload-forms/all">Upload Forms</Link>
-                  </li>
-                </ul>
-              </div>
-            </li>
+            { /*
+              <li
+                className={classnames('nav-item with-sub', {
+                  active: this.props.location.pathname === '/forms'
+                })}
+              >
+                <Link className="nav-link" to="/forms">
+                  <i className="icon ion-ios-gear-outline"/>
+                  <span>Forms</span>
+                </Link>
+                <div className="sub-item">
+                  <ul>
+                    <li>
+                      <Link to="/forms">All Forms</Link>
+                    </li>
+                    <li>
+                      <Link to="/forms/build-forms">Build Forms</Link>
+                    </li>
+                    <li>
+                      <Link to="/forms/upload-forms/all">Upload Forms</Link>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+            */}
             <li
               className={classnames('nav-item', {
                 active: this.props.location.pathname === '/notifications'
@@ -89,50 +103,52 @@ class AdminNavbar extends Component {
             >
               <Link className="nav-link" to="/messages">
                 <i className="icon ion-ios-email-outline"/>
-                <span>Messages</span>
+                <span>Companies</span>
               </Link>
             </li>
-            <li
-              className={classnames('nav-item with-sub', {
-                active: this.props.location.pathname === '/modules'
-              })} style={{borderRight: "1px solid #dee2e6"}}
-            >
-              <Link className="nav-link" to="/modules">
-                <i className="icon ion-ios-filing-outline"/>
-                <span>Modules</span>
-              </Link>
-              <div className="sub-item">
-                <ul>
-                  <li>
-                    <Link to="/modules/submissions">Submissions</Link>
-                  </li>
-                  <li>
-                    <Link to="/modules/referrals">Referrals</Link>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            
-            <li
-              className={classnames('nav-item with-sub', {
-                active: this.props.location.pathname === '/reports'
-              })}
-            >
-              <Link className="nav-link" to="/reports">
-                <i className="icon ion-ios-analytics-outline"/>
-                <span>Report</span>
-              </Link>
-              <div className="sub-item">
-                <ul>
-                  <li>
-                    <Link to="/reports">All reports</Link>
-                  </li>
-                  <li>
-                    <Link to="/reports/build">Build reports</Link>
-                  </li>
-                </ul>
-              </div>
-            </li>
+            { /*
+              <li
+                className={classnames('nav-item with-sub', {
+                  active: this.props.location.pathname === '/modules'
+                })} style={{borderRight: "1px solid #dee2e6"}}
+              >
+                <Link className="nav-link" to="/modules">
+                  <i className="icon ion-ios-filing-outline"/>
+                  <span>Modules</span>
+                </Link>
+                <div className="sub-item">
+                  <ul>
+                    <li>
+                      <Link to="/modules/submissions">Submissions</Link>
+                    </li>
+                    <li>
+                      <Link to="/modules/referrals">Referrals</Link>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              
+              <li
+                className={classnames('nav-item with-sub', {
+                  active: this.props.location.pathname === '/reports'
+                })}
+              >
+                <Link className="nav-link" to="/reports">
+                  <i className="icon ion-ios-analytics-outline"/>
+                  <span>Report</span>
+                </Link>
+                <div className="sub-item">
+                  <ul>
+                    <li>
+                      <Link to="/reports">All reports</Link>
+                    </li>
+                    <li>
+                      <Link to="/reports/build">Build reports</Link>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+            */}
           </ul>
         </div>
       </div>

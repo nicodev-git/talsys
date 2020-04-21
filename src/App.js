@@ -57,6 +57,8 @@ import AppLoading from './client/components/Elements/Loading';
 import store from './client/utils/store';
 import Socket from './client/components/App/socket';
 
+import 'antd/dist/antd.css';
+
 axios.interceptors.response.use(
   response => {
     return response;

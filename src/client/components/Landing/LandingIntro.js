@@ -1,33 +1,24 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import './LandingIntro.css'
 
 export default function LandingIntro() {
   return (
-    <div className="signin-left">
-      <div className="signin-box">
-        <h2 className="slim-logo">
-          <Link to="/">
-            Link2Settle<span>.</span>
-          </Link>
-        </h2>
-
-        <p>
-          We are excited to launch our new product Link2Settle immigration. After
-          working closely with different non-for-profit agencies helping
-          immigrants, we know that Link2Settle solves a major problem. We hope to
-          simplify and automate NFP core processes so that they can spend more
-          time with their clients.
-        </p>
-
-        <p>Contact us for a free demo or create an account.</p>
-
-        <p>
-          <Link to="/" className="btn btn-outline-secondary pd-x-25">
-            Learn More
-          </Link>
-        </p>
-
-        <p className="tx-12">© Copyright 2018. All Rights Reserved.</p>
+    <div className="landing-intro-screen">
+      <img className="landingintro-background" src="/assets/img/neature.jpg" />
+      <div className="signin-left p-4">
+        <div className="signin-box">
+          <h2 className="slim-logo">
+            <Link to="/">
+              Paidiem
+            </Link>
+          </h2>
+          
+          <p>
+            The Paidiem Instant pay solution revolutionizes income for today's workforce
+          </p>
+          <p className="tx-12">© Copyright 2018. All Rights Reserved.</p>
+        </div>
       </div>
     </div>
   );

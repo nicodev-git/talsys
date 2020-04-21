@@ -33,35 +33,32 @@ exports.postClientRegister = async (req, res) => {
     password,
     passwordConfirmation,
     phone,
-      services,
+    services,
     firstName,
     lastName
   } = req.body;
 
-  if (!password || !email || !firstName || !lastName || !phone) {
+  if (!password || !email || !firstName || !lastName) {
     return res.status(422).json({
-      alert: {
-        title: 'Error!',
-        detail: 'All fields are required',
-      },
+      errorMsg: 'Required fields missed'
     });
   }
 
   if (!validator.isEmail(email)) {
     return res.status(422).json({
-      email: 'Invalid Email',
+      errorMsg: 'Invalid Email',
     });
   }
 
   if (password.length < 6) {
     return res.status(422).json({
-      password: 'Password must be at least 6 characters',
+      errorMsg: 'Password must be at least 6 characters',
     });
   }
 
   if (password !== passwordConfirmation) {
     return res.status(422).json({
-      passwordConfirmation: 'Password is not a same as confirmation',
+      errorMsg: 'Password is not a same as confirmation',
     });
   }
 
@@ -75,7 +72,7 @@ exports.postClientRegister = async (req, res) => {
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(422).json({
-        email: 'User already exists',
+        errorMsg: 'User already exists. Please use other email.',
       });
     }
 
@@ -104,19 +101,13 @@ exports.postClientRegister = async (req, res) => {
 
     return res.json({
       success: true,
-      alert: {
-        title: 'Success!',
-        detail: 'Your user have been created'
-      },
+      message: 'You have been successfully registered. Please login.'
     });
   } catch (error) {
     //logger.error(error);
     console.error(error);
     return res.status(422).json({
-      alert: {
-        title: 'Error!',
-        detail: 'Server Error: Please try again'
-      },
+      errorMsg: 'Server Error: Please try again'
     });
   }
 };
@@ -140,21 +131,21 @@ exports.postLogin = async (req, res) => {
 
   if (!validator.isEmail(email)) {
     return res.status(422).json({
-      email: 'Invalid Email',
+      errorMsg: 'Invalid Email. Please type the correct email.',
     });
   }
 
   try {
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(422).json({ email: 'User does not exists' });
+      return res.status(422).json({ errorMsg: 'User does not exists.' });
     }
 
     const matched = await user.hasSamePassword(password);
 
     if (!matched) {
       return res.status(422).json({
-        password: 'Wrong password',
+        errorMsg: 'Wrong password. Please try again.',
       });
     }
 
@@ -184,10 +175,7 @@ exports.postLogin = async (req, res) => {
   } catch (error) {
     logger.error(error);
     return res.status(422).json({
-      alert: {
-        title: 'Error!',
-        detail: 'Server occurred an error,  please try again',
-      },
+      errorMsg: 'Server Error: Please try again'
     });
   }
 };

@@ -315,6 +315,7 @@ textarea {
   margin: 0;
   font-family: inherit;
   font-size: inherit;
+  min-height: 40px !important;
   line-height: inherit; }
 
 button,
@@ -15348,6 +15349,18 @@ textarea.parsley-success:focus {
     margin-left: 0;
     margin-right: 15px; }
 
+.fadeIn {
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+}
+
+.animated {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
 /* --------------------------------------- */
 /* ############### SIGN IN ############### */
 /* --------------------------------------- */
@@ -15399,15 +15412,15 @@ textarea.parsley-success:focus {
 .signin-left,
 .signin-right {
   position: relative;
-  min-height: 100vh;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 30px; }
-  @media (min-width: 768px) {
+  }
+  @media (max-width: 768px) {
     .signin-left,
     .signin-right {
+      height: 100% !important;
       width: 50%; } }
   .signin-left .signin-box,
   .signin-right .signin-box {

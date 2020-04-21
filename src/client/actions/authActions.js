@@ -1,5 +1,6 @@
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
+import { notification } from 'antd';
 
 import {
   API_URL,
@@ -10,18 +11,24 @@ import {
   CLEAR_CURRENT_PROFILE
 } from './types';
 import setAuthToken from '../utils/setAuthToken';
+import paidiemAlert from '../utils/alert';
 import {
   getCurrentUserPermissions,
   clearCurrentPermission,
 } from './accessActions';
 
 export const registerClientUser = (userData, history) => async dispatch => {
-    await axios.post(`${API_URL}/api/users/register/client`, userData);
+  try {
+    const res = await axios.post(`${API_URL}/api/users/register/client`, userData);
+    paidiemAlert('success', 'Signup Success!', res.data.message)
     history.push({
       pathname: '/',
       isRegistered: true,
       detail: 'Your user have been created. Sign in now'
     });
+  } catch( error ) {
+    paidiemAlert('error', 'Signup Failed', error.response.data.errorMsg)
+  }
 };
 
 //Add new user through ADMIN Role
@@ -81,7 +88,7 @@ export const loginUser = userData => async dispatch => {
       // update last login date
     dispatch(updateLastLogin(userData));
   } catch (error) {
-    console.log(error);
+    paidiemAlert('error', 'Sign In Failed', error.response.data.errorMsg)
     return dispatch({
       type: GET_ERRORS,
       payload: error.response.data

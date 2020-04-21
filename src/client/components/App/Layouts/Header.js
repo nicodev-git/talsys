@@ -126,7 +126,7 @@ class Header extends Component {
           <div className="slim-header-left">
             <h2 className="slim-logo">
               <Link to="/">
-                Link2Settle<span>.</span>
+                Padieum<span>.</span>
               </Link>
             </h2>
 
@@ -177,7 +177,7 @@ class Header extends Component {
               </Link>
               <div className="dropdown-menu dropdown-menu-right">
                 <nav className="nav">
-                  {/* <a href="page-profile.html" className="nav-link">
+                  <a href="page-profile.html" className="nav-link">
                     <i className="icon ion-person" /> View Profile
                   </a>
                   <a href="page-edit-profile.html" className="nav-link">
@@ -185,7 +185,7 @@ class Header extends Component {
                   </a>
                   <a href="page-activity.html" className="nav-link">
                     <i className="icon ion-ios-bolt" /> Activity Log
-                  </a> */}
+                  </a> 
                   {role === 'admin' && (
                     <Link to="/settings/admin-settings" className="nav-link">
                       <i className="icon ion-ios-gear" /> Admin Settings
