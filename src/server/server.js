@@ -50,7 +50,7 @@ app.use(
 );
 
 // Database config
-const db = require('./configs/keys').mongoURI;
+const db = require('./configs/keys_dev').mongoURI;
 
 // Connect to MongoDB
 mongoose
