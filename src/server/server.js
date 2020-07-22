@@ -89,7 +89,9 @@ if (!debugMode) {
 app.use(require('./helpers/error-handler'));
 
 app.get('/*', function (req, res) {
-  if (req.xhr || req.headers.accept.indexOf('json') > -1) {
+  console.log(req.headers)
+  // if (req.xhr || req.headers.accept.indexOf('json') > -1) {
+  if (req.xhr) {
     // send your xhr response here
     res.sendStatus(404);
   } else {
