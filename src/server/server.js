@@ -54,7 +54,7 @@ const db = require('./configs/keys_dev').mongoURI;
 
 // Connect to MongoDB
 mongoose
-  .connect(db, { useNewUrlParser: true })
+  .connect('mongodb://iauto:iauto2019@ds161764.mlab.com:61764/iauto-api-dev', { useNewUrlParser: true })
   .then(() => logger.info('MongoDB connected'))
   .catch(err => logger.error(err));
 mongoose.set('useCreateIndex', true);
