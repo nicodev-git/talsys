@@ -1,6 +1,5 @@
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
-import { notification } from 'antd';
 
 import {
   API_URL,
@@ -10,24 +9,20 @@ import {
   CLEAR_ERRORS,
   CLEAR_CURRENT_PROFILE
 } from './types';
-import setAuthToken from '../utils/setAuthToken';
-import paidiemAlert from '../utils/alert';
-import {
-  getCurrentUserPermissions,
-  clearCurrentPermission,
-} from './accessActions';
+import setAuthToken from 'client/utils/setAuthToken';
+import AntNotification from 'client/components/Alert';
 
 export const registerClientUser = (userData, history) => async dispatch => {
   try {
     const res = await axios.post(`${API_URL}/api/users/register/client`, userData);
-    paidiemAlert('success', 'Signup Success!', res.data.message)
+    AntNotification('success', 'Signup Success!', res.data.message)
     history.push({
       pathname: '/',
       isRegistered: true,
       detail: 'Your user have been created. Sign in now'
     });
   } catch( error ) {
-    paidiemAlert('error', 'Signup Failed', error.response.data.errorMsg)
+    AntNotification('error', 'Signup Failed', error.response.data.errorMsg)
   }
 };
 
@@ -68,7 +63,7 @@ export const deleteUsers = (permissionIds, history) => async dispatch => {
 };
 
 // Login - Get User Token
-export const loginUser = userData => async dispatch => {
+export const loginUser = (userData, history) => async dispatch => {
   try {
     const res = await axios.post(`${API_URL}/api/users/login`, userData);
     const { token } = res.data;
@@ -78,17 +73,15 @@ export const loginUser = userData => async dispatch => {
     setAuthToken(token);
     // Decode token to get user data
     const decoded = jwt_decode(token);
-    console.log(decoded);
-    // Get current user profile
-    dispatch(getCurrentUserProfile(decoded.userId));
-    //Get current user permissons
-    dispatch(getCurrentUserPermissions(decoded.profileId));
     // Set current user
     dispatch(setCurrentUser(decoded));
-      // update last login date
-    dispatch(updateLastLogin(userData));
+
+    history.push({
+      pathname: '/dashboard',
+    });
+
   } catch (error) {
-    paidiemAlert('error', 'Sign In Failed', error.response.data.errorMsg)
+    AntNotification('error', 'Sign In Failed', error.response.data.errorMsg)
     return dispatch({
       type: GET_ERRORS,
       payload: error.response.data
@@ -112,30 +105,8 @@ export const logoutUser = () => dispatch => {
   setAuthToken(false);
   // Clear errors
   dispatch(clearErrors());
-  // Clear current profile
-  dispatch(clearCurrentProfile());
-  // Clear current permissions
-  dispatch(clearCurrentPermission());
   // Set current user to {} which will set isAuthenticated to false
   dispatch(setCurrentUser({}));
-};
-
-// Get current user profile
-export const getCurrentUserProfile = userId => async dispatch => {
-  try {
-    const res = await axios.get(`${API_URL}/api/users/${userId}`);
-    // console.log(res);
-    dispatch({
-      type: GET_CURRENT_USER_PROFILE,
-      payload: res.data
-    });
-  } catch (error) {
-    dispatch({
-      type: GET_ERRORS,
-      payload: error.response.data
-    });
-    throw new Error(error);
-  }
 };
 
 // Request Reset Password
@@ -166,36 +137,3 @@ export const clearErrors = () => {
     type: CLEAR_ERRORS
   };
 };
-
-// Clear errors
-export const clearCurrentProfile = () => {
-  return {
-    type: CLEAR_CURRENT_PROFILE
-  };
-};
-
-// Update user last login date
-export const updateLastLogin = (userData) => async () => {
-  await axios.patch(`${API_URL}/api/users/updatelastlogin`, userData);
-}
-// //Edit Profile
-// export const editProfile = profileData => async dispatch => {
-//   const profileForm = new FormData();
-//   profileForm.append('name', profileData.name);
-//   profileForm.append('bio', profileData.bio);
-//   profileForm.append('image', profileData.image);
-
-//   try {
-//     const res = await axios.post('/api/users/', profileForm);
-
-//     dispatch({
-//       type: EDIT_PROFILE,
-//       payload: res.data
-//     });
-//   } catch (err) {
-//     dispatch({
-//       type: GET_ERRORS,
-//       payload: err.response.data
-//     });
-//   }
-// };
