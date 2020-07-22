@@ -164,7 +164,8 @@ exports.postLogin = async (req, res) => {
         permission: permission.permissionRight,
         username: profile.firstName + " " + profile.lastName
       },
-      keys.secretOrKey,
+      // keys.secretOrKey,
+      "jjgfawertkhjkhgszfdfghhkluy",
       { expiresIn: '30d' },
     );
 
