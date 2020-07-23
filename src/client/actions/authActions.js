@@ -89,6 +89,36 @@ export const loginUser = (userData, history) => async dispatch => {
   }
 };
 
+
+// Login with Linkedin
+export const loginWithLinkedin = (code, history) => async dispatch => {
+  try {
+    const res = await axios.post(`${API_URL}/api/users/linkedin-login`, {code:code});
+
+    const { token } = res.data;
+    // Set token to lS
+    localStorage.setItem('jwtToken', token);
+    // Set token to Auth header
+    setAuthToken(token);
+    // Decode token to get user data
+    const decoded = jwt_decode(token);
+    // Set current user
+    dispatch(setCurrentUser(decoded));
+
+    history.push({
+      pathname: '/dashboard',
+    });
+
+  } catch (error) {
+    console.log(error)
+    AntNotification('error', 'Sign In Failed', error.response.data.errorMsg)
+    return dispatch({
+      type: GET_ERRORS,
+      payload: error.response.data
+    });
+  }
+};
+
 // Set logged in user
 export const setCurrentUser = decoded => {
   return {

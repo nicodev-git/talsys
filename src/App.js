@@ -8,6 +8,7 @@ import { GET_ERRORS } from './client/actions/types';
 // Auth Pages
 import LoginPage from './client/pages/Auth/Login';
 import RegisterPage from './client/pages/Auth/Register';
+import LinkedinCallback from './client/pages/Auth/LinkedinCallback';
 import checkAuth from './client/utils/checkAuth';
 import PrivateRoute from './client/routes/PrivateRoute';
 import ScrollToTop from './client/utils/ScrollToTop';
@@ -67,6 +68,7 @@ class App extends Component {
           <ScrollToTop>
             <Route exact path='/' component={LoginPage} />
             <Route exact path='/register' component={RegisterPage} />
+            <Route exact path='/callback' component={LinkedinCallback} />
             <div className='App'>
               <Switch>
                 <PrivateRoute exact path='/dashboard' component={DashboardPage} />

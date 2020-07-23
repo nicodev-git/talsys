@@ -1,5 +1,7 @@
 const jwt = require('jsonwebtoken');
 const validator = require('validator');
+const { URLSearchParams } = require('url')
+const fetch = require('node-fetch')
 const keys = require('../configs/keys');
 const logger = require('../configs/logger');
 const nodeMailer = require('../helpers/nodemailer');
@@ -164,8 +166,7 @@ exports.postLogin = async (req, res) => {
         permission: permission.permissionRight,
         username: profile.firstName + " " + profile.lastName
       },
-      // keys.secretOrKey,
-      "jjgfawertkhjkhgszfdfghhkluy",
+      keys.secretOrKey,
       { expiresIn: '30d' },
     );
 
@@ -180,6 +181,87 @@ exports.postLogin = async (req, res) => {
     });
   }
 };
+
+
+// @route POST api/users/linkedin-login
+// @desc Login user with Linkedin / Returning JWT token
+// @access Public
+
+const fetchJSON = (...args) => fetch(...args).then(r => r.json())
+
+exports.postLinkedinLogin = async (req, res) => {
+  const { code } = req.body;
+
+  const body = new URLSearchParams({
+    grant_type: 'authorization_code',
+    code,
+    redirect_uri: keys.LINKEDIN_RIDERECT_URI,
+    client_id: keys.LINKEDIN_CLIENT_ID,
+    client_secret: keys.LINKEDIN_CLIENT_SECRET
+  })
+
+
+  try {
+    const { access_token } = await fetchJSON(keys.LINKEDIN_ACCESS_TOKEN, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body
+    })
+
+    const payload = {
+      method: 'GET',
+      headers: { Authorization: `Bearer ${access_token}` }
+    }
+    const { localizedFirstName, localizedLastName, id } = await fetchJSON(
+      keys.LINKEDIN_NAME_URL,
+      payload
+    )
+
+    const { elements } = await fetchJSON(keys.LINKEDIN_EMAIL_URL, payload)
+    const email = elements[0]['handle~'].emailAddress
+
+    let user = await User.findOne({ email });
+
+      console.log(user)
+    if (!user) {
+      user = await new User({
+        email,
+        password: 'oauth2',
+      });
+      await user.save();
+
+      console.log(user)
+
+      let profile = await new Profile({
+        user: user.id,
+        email,
+        lastName: localizedLastName,
+        firstName: localizedFirstName,
+      }).save();
+    }
+
+    const token = jwt.sign(
+      {
+        userId: user.id,
+        username: localizedFirstName + " " + localizedLastName
+      },
+      keys.secretOrKey,
+      { expiresIn: '30d' },
+    );
+
+    return res.json({
+      success: true,
+      token: `Bearer ${token}`,
+    });
+
+  } catch(error){
+    logger.error(error);
+    return res.status(422).json({
+      errorMsg: 'Server Error: Please try again'
+    });
+  }
+};
+
 
 // @route POST api/users/register/user
 // @desc Add new user

@@ -54,6 +54,7 @@
     "react-dom": "^16.7.0",
     "react-export-excel": "^0.5.3",
     "react-jqueryui-datepicker": "^1.0.3",
+    "react-linkedin-login-oauth2": "^1.0.7",
     "react-notifications-component": "^1.1.1",
     "react-phone-number-input": "^2.3.11",
     "react-redux": "^6.0.0",

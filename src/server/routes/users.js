@@ -15,6 +15,11 @@ router.post('/register/client', userController.postClientRegister);
 // @access Public
 router.post('/login', userController.postLogin);
 
+// @route POST api/users/linkedin-login
+// @desc Login user with Linkedin / Returning JWT token
+// @access Public
+router.post('/linkedin-login', userController.postLinkedinLogin);
+
 // @route POST api/users/adduser
 // @desc Add new user
 // @access Private

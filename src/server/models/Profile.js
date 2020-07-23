@@ -14,12 +14,11 @@ const ProfileSchema = {
     type: String,
     required: true
   },
-    services: [
-        {
-            type: String,
-            required: true
-        }
-    ],
+  services: [
+    {
+      type: String,
+    }
+  ],
   email: {
     type: String,
     required: true
@@ -32,8 +31,7 @@ const ProfileSchema = {
     type: String,
   },
   domain: {
-    type: String,
-    required: true
+    type: String
   },
 };
 

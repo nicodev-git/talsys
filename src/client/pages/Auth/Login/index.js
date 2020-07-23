@@ -6,6 +6,9 @@ import LandingIntro from 'client/pages/Static/Intro/LandingIntro';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {loginUser} from 'client/actions/authActions';
+import { LINKEDIN_URL } from 'client/constants/auth'
+
+import LinkedinAuthButton from '../LinkedinAuth'
 
 import './style.css'
 
@@ -60,11 +63,13 @@ class NormalLoginForm extends React.Component {
                     )}
                   </Form.Item>
                   <Form.Item className="col-8 ml-auto mr-auto mb-3">
-                    <Button type="primary" htmlType="submit" className="login-form-button ">
+                    <Button type="primary" htmlType="submit" className="login-form-button mb-3">
                       Sign in
                     </Button>
+                    <LinkedinAuthButton/>
                   </Form.Item>
                 </Form>
+                
                  <p className="mg-b-0 text-center">
                   Don't have an account? <Link to="/register">Sign Up</Link>
                 </p>

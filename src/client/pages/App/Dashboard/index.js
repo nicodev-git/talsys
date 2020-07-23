@@ -1,19 +1,34 @@
 import React, { Component } from 'react';
-import Dashboard from './Dashboard';
-import Breadcrumb from 'react-bootstrap/Breadcrumb'
-import io from 'socket.io-client';
-import { API_URL } from '../../../actions/types';
 import { connect } from 'react-redux';
+import { Card, Row, Col } from 'antd';
+import './dashboard.css';
 
-export default class DashboardPage extends Component {
-	  render() {
-	    return (
-		    <div>
-		    	<div className="container">
-		            <h6 className="slim-pagetitle">Dashboard</h6>
-		        </div>
-		    	<Dashboard />
-		    </div>
-	    );
-	  }
+import CompanyTable from './CompanyTable'
+
+export class Dashboard extends Component {
+
+  render() {
+    return (
+      <div className="container-fluid">
+        <Row className="w-100" gutter={16}>
+          <Col span={6}>
+            <Card
+              style={{ width: "100%" }}
+            >
+              <Card.Meta title="Search & Filter" description="description ..." />
+            </Card>
+          </Col>
+          <Col span={18}>
+          	<Card
+              style={{ width: "100%" }}
+            >
+            	<CompanyTable/>
+           	</Card>
+          </Col>
+        </Row>
+      </div>
+    );
+  }
 }
+
+export default Dashboard

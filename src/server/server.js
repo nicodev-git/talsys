@@ -50,11 +50,11 @@ app.use(
 );
 
 // Database config
-const db = require('./configs/keys_dev').mongoURI;
+const db = require('./configs/keys').mongoURI;
 
 // Connect to MongoDB
 mongoose
-  .connect('mongodb://iauto:iauto2019@ds161764.mlab.com:61764/iauto-api-dev', { useNewUrlParser: true })
+  .connect(db, { useNewUrlParser: true })
   .then(() => logger.info('MongoDB connected'))
   .catch(err => logger.error(err));
 mongoose.set('useCreateIndex', true);
@@ -89,9 +89,7 @@ if (!debugMode) {
 app.use(require('./helpers/error-handler'));
 
 app.get('/*', function (req, res) {
-  console.log(req.headers)
-  // if (req.xhr || req.headers.accept.indexOf('json') > -1) {
-  if (req.xhr) {
+  if (req.xhr || req.headers.accept.indexOf('json') > -1) {
     // send your xhr response here
     res.sendStatus(404);
   } else {

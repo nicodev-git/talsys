@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
+import { Layout } from 'antd';
 import PropTypes from 'prop-types';
 import { decoded } from 'client/utils/checkAuth';
 import store from 'client/utils/store';
@@ -34,11 +35,13 @@ class PrivateRoute extends Component {
         {...rest}
         render={props =>
           auth.isAuthenticated === true ? (
-            <div>
+            <Layout>
               <Header/>
-              <Component {...props} />
+              <Layout.Content className="p-4">
+                <Component {...props} />
+              </Layout.Content>
               <Footer />
-            </div>
+            </Layout>
           ) : (
             <Redirect to="/" />
           )

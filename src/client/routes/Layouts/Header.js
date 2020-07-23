@@ -6,17 +6,14 @@ import io from 'socket.io-client';
 import { API_URL } from 'client/actions/types';
 import ReactNotification from "react-notifications-component";
 
+import WhiteLogo from "client/assets/images/logo-white.png"
+
+
 class Header extends Component {
   constructor(props) {
     super(props)
     this.socket = io(API_URL);
   }
-  // componentWillUpdate() {
-  //   const profileId = this.props.profile._id;
-  //   const { getSocketNotification } = this.props;
-  //     getSocketNotification(profileId);
-  // }
-
 
   onLogoutClick = e => {
     e.preventDefault();
@@ -27,16 +24,25 @@ class Header extends Component {
    
     return (
       <div className="slim-header">
-        <div className="container">
+        <div className="container-fluid px-5">
           <div className="slim-header-left">
             <h2 className="slim-logo">
               <Link to="/">
-                Loream
+                <img src={WhiteLogo} width="150"/>
               </Link>
             </h2>
-
-            
           </div>
+          <div className="search-box">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Search"
+            />
+            <button className="btn btn-primary">
+              <i className="fa fa-search" />
+            </button>
+          </div>
+
           <div className="slim-header-right">
             <div className="dropdown dropdown-c">
               <Link to="/" className="logged-user" data-toggle="dropdown">
@@ -47,10 +53,7 @@ class Header extends Component {
               <div className="dropdown-menu dropdown-menu-right">
                 <nav className="nav">
                   <a href="page-profile.html" className="nav-link">
-                    <i className="icon ion-person" /> View Profile
-                  </a>
-                  <a href="page-edit-profile.html" className="nav-link">
-                    <i className="icon ion-compose" /> Edit Profile
+                    <i className="icon ion-person" /> Profile
                   </a>
                   <a href="page-activity.html" className="nav-link">
                     <i className="icon ion-ios-bolt" /> Activity Log
