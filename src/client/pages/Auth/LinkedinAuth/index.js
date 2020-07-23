@@ -17,7 +17,7 @@ const LinkedinAuthButton = (props) => {
   useEffect(() => {
     window.removeEventListener('message', receiveLinkedInMessage)
     popup && popup.close()
-  }, [])
+  })
 
   const receiveLinkedInMessage = async ({ origin, data: { state, code, error, ...rest} }) => {
     if (origin !== window.location.origin || state !== LINKEDIN_STATE) return
