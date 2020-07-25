@@ -3,9 +3,9 @@ import jwt_decode from 'jwt-decode';
 import setAuthToken from './setAuthToken';
 import {
   setCurrentUser,
-  logoutUser
+  logoutUser,
+  getCurrentUserProfile
 } from '../actions/authActions';
-import { getCurrentUserPermissions } from 'client/actions/accessActions';
 
 export let decoded = {};
 // Check for token
@@ -18,7 +18,12 @@ export default async store => {
       decoded = await jwt_decode(localStorage.jwtToken);
       // Set user and isAuthenticated
       store.dispatch(setCurrentUser(decoded));
-
+      // Get current user's profile
+      try {
+        await store.dispatch(getCurrentUserProfile(decoded.userId));
+      } catch (error) {
+        store.dispatch(logoutUser());
+      }
       // Check for expried token
       const currentTime = Date.now() / 1000;
       if (decoded.exp < currentTime) {

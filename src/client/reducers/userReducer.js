@@ -1,4 +1,4 @@
-import {GET_USERS} from '../actions/types';
+import {GET_USERS} from '../constants/types';
 
 const initialState = {
   loading: true,

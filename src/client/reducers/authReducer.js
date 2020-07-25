@@ -1,4 +1,9 @@
-import {CLEAR_CURRENT_PROFILE, EDIT_PROFILE, GET_CURRENT_USER_PROFILE, SET_CURRENT_USER} from '../actions/types';
+import {
+  CLEAR_CURRENT_PROFILE, 
+  EDIT_PROFILE, 
+  GET_CURRENT_USER_PROFILE, 
+  SET_CURRENT_USER
+} from '../constants/types';
 import isEmpty from '../utils/isEmpty';
 
 const initialState = {

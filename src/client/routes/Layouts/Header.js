@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { logoutUser } from 'client/actions/authActions';
 import { connect } from 'react-redux';
-import io from 'socket.io-client';
-import { API_URL } from 'client/actions/types';
 import ReactNotification from "react-notifications-component";
 
 import WhiteLogo from "client/assets/images/logo-white.png"
@@ -12,7 +10,6 @@ import WhiteLogo from "client/assets/images/logo-white.png"
 class Header extends Component {
   constructor(props) {
     super(props)
-    this.socket = io(API_URL);
   }
 
   onLogoutClick = e => {
@@ -21,7 +18,9 @@ class Header extends Component {
   };
 
   render() {
-   
+    const { profile } = this.props;
+    const firstName = profile.firstName;
+
     return (
       <div className="slim-header">
         <div className="container-fluid px-5">
@@ -47,7 +46,7 @@ class Header extends Component {
             <div className="dropdown dropdown-c">
               <Link to="/" className="logged-user" data-toggle="dropdown">
                 <img src="http://via.placeholder.com/500x500" alt="" />
-                <span></span>
+                <span>{firstName}</span>
                 <i className="fa fa-angle-down" />
               </Link>
               <div className="dropdown-menu dropdown-menu-right">

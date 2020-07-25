@@ -1,8 +1,6 @@
 import axios from 'axios';
 
-import {
-    API_URL
-} from './types';
+import { API_URL } from '../constants/config'
 import setAuthToken from "../utils/setAuthToken";
 
 export const registerPayment = (paymentData, history) => async dispatch => {

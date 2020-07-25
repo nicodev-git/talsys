@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import { GET_ERRORS } from './client/actions/types';
+import { GET_ERRORS } from './client/constants/types';
 
 // Auth Pages
 import LoginPage from './client/pages/Auth/Login';

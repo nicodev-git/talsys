@@ -5,8 +5,8 @@ import { Form, Icon, Input, Button, Row, Col} from 'antd';
 import LandingIntro from 'client/pages/Static/Intro/LandingIntro';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import {loginUser} from 'client/actions/authActions';
-import { LINKEDIN_URL } from 'client/constants/auth'
+import { loginUser } from 'client/actions/authActions';
+import { LINKEDIN_URL } from 'client/constants/config'
 
 import LinkedinAuthButton from '../LinkedinAuth'
 

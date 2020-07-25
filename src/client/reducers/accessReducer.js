@@ -2,7 +2,7 @@ import {
   GET_CURRENT_USER_PERMISSIONS,
   CLEAR_CURRENT_PERMISSIONS,
   GET_ADMIN_PERMISSIONS
-} from '../actions/types';
+} from '../constants/types';
 
 const initialState = {
   permissions: [],

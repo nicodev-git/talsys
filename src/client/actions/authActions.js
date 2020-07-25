@@ -1,14 +1,13 @@
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
-
+import { API_URL } from '../constants/config'
 import {
-  API_URL,
   GET_ERRORS,
   SET_CURRENT_USER,
   GET_CURRENT_USER_PROFILE,
   CLEAR_ERRORS,
   CLEAR_CURRENT_PROFILE
-} from './types';
+} from '../constants/types';
 import setAuthToken from 'client/utils/setAuthToken';
 import AntNotification from 'client/components/Alert';
 
@@ -73,6 +72,8 @@ export const loginUser = (userData, history) => async dispatch => {
     setAuthToken(token);
     // Decode token to get user data
     const decoded = jwt_decode(token);
+    // Get current user profile
+    dispatch(getCurrentUserProfile(decoded.userId));
     // Set current user
     dispatch(setCurrentUser(decoded));
 
@@ -90,6 +91,25 @@ export const loginUser = (userData, history) => async dispatch => {
 };
 
 
+// Get current user profile
+export const getCurrentUserProfile = userId => async dispatch => {
+  try {
+    const res = await axios.get(`${API_URL}/api/users/${userId}`);
+    // console.log(res);
+    dispatch({
+      type: GET_CURRENT_USER_PROFILE,
+      payload: res.data
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_ERRORS,
+      payload: error.response.data
+    });
+    throw new Error(error);
+  }
+};
+
+
 // Login with Linkedin
 export const loginWithLinkedin = (code, history) => async dispatch => {
   try {
@@ -102,6 +122,8 @@ export const loginWithLinkedin = (code, history) => async dispatch => {
     setAuthToken(token);
     // Decode token to get user data
     const decoded = jwt_decode(token);
+    // Get current user profile
+    dispatch(getCurrentUserProfile(decoded.userId));
     // Set current user
     dispatch(setCurrentUser(decoded));
 

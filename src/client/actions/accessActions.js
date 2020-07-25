@@ -1,11 +1,10 @@
 import axios from 'axios';
-
+import { API_URL } from '../constants/config'
 import {
-  API_URL,
   GET_CURRENT_USER_PERMISSIONS,
   CLEAR_CURRENT_PERMISSIONS,
   GET_ADMIN_PERMISSIONS
-} from './types';
+} from '../constants/types';
 
 // Get current user's permissions
 export const getCurrentUserPermissions = profileId => async dispatch => {

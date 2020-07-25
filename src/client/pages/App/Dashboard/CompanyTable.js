@@ -6,13 +6,14 @@ import { Card, Row, Col, Table, Tag, Space } from 'antd';
 const columns = [
   {
     title: 'Filed At',
-    dataIndex: 'date',
-    key: 'date',
+    dataIndex: 'filedAt',
+    key: 'filedAt',
+    render: (date) => new Date(date).toLocaleString()
   },
   {
     title: 'From Type',
-    dataIndex: 'form',
-    key: 'form',
+    dataIndex: 'formType',
+    key: 'formType',
   },
   {
     title: 'CIK',
@@ -23,61 +24,46 @@ const columns = [
     title: 'SIC',
     key: 'sic',
     dataIndex: 'sic',
+    render: (cell, row) => row.entities[0].sic
   },
   {
     title: 'Company Name',
-    key: 'company',
-    dataIndex: 'company',
+    key: 'companyName',
+    dataIndex: 'companyName',
   },
   {
     title: 'Filing Details',
-    key: 'details',
-    dataIndex: 'details',
+    key: 'linkToFilingDetails',
+    dataIndex: 'linkToFilingDetails',
+    render: (link) => <a href={link} target="_blank">{link}</a>
+  },
+  {
+    title: 'TXT Version of Filing',
+    key: 'linkToTxt',
+    dataIndex: 'linkToTxt',
+    render: (link) => <a href={link} target="_blank">{link}</a>
+  },
+  {
+    title: 'Attachments',
+    key: 'linkToHtml',
+    dataIndex: 'linkToHtml',
+    render: (link) => <a href={link} target="_blank">{link}</a>
   }
 ];
 
-const data = [
-  {
-    key: '1',
-    date: new Date().toLocaleString(),
-    form: "8-K",
-    cik: '111',
-    sic: '111',
-    company: 'SUN COMMUNITIES INC',
-    details: 'details link',
-  },
-  {
-    key: '2',
-    date: new Date().toLocaleString(),
-    form: "8-K",
-    cik: '111',
-    sic: '111',
-    company: 'SUN COMMUNITIES INC',
-    details: 'details link',
-  },
-  {
-    key: '3',
-    date: new Date().toLocaleString(),
-    form: "8-K",
-    cik: '111',
-    sic: '111',
-    company: 'SUN COMMUNITIES INC',
-    details: 'details link',
-  },
-  {
-    key: '4',
-    date: new Date().toLocaleString(),
-    form: "8-K",
-    cik: '111',
-    sic: '111',
-    company: 'SUN COMMUNITIES INC',
-    details: 'details link',
-  },
-];
 
-const CompanyTable = () => {
+const CompanyTable = ({loading, pagination, onChange, dataSource}) => {
+  console.log(dataSource)
   return (
-    <Table columns={columns} dataSource={data} />
+    <Table 
+      columns={columns} 
+      rowKey={record => record.id}
+      scroll={{ x: 1300 }}
+      dataSource={dataSource} 
+      pagination={pagination}
+      loading={loading} 
+      onChange={onChange}
+    />
   );
 }
 

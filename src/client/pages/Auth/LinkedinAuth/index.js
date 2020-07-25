@@ -3,16 +3,14 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from "react-router";
 import { Button } from 'antd'
-import { LINKEDIN_URL, LINKEDIN_STATE } from 'client/constants/auth'
+import { LINKEDIN_URL, LINKEDIN_STATE } from 'client/constants/config'
 import AntNotification from 'client/components/Alert'
 import {loginWithLinkedin} from 'client/actions/authActions';
 
 
 const LinkedinAuthButton = (props) => {
   let popup = null
-
   const [loading, setLoading] = useState(false)
-
 
   useEffect(() => {
     window.removeEventListener('message', receiveLinkedInMessage)

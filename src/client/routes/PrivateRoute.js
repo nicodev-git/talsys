@@ -35,7 +35,7 @@ class PrivateRoute extends Component {
         {...rest}
         render={props =>
           auth.isAuthenticated === true ? (
-            <Layout>
+            <Layout style={{height: '100%', minHeight: '100vh'}}>
               <Header/>
               <Layout.Content className="p-4">
                 <Component {...props} />
