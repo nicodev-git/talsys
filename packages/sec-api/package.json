@@ -1,0 +1,69 @@
+{
+  "_from": "sec-api",
+  "_id": "sec-api@2.0.1",
+  "_inBundle": false,
+  "_integrity": "sha512-dexPfPVf3sC0GIIr43OUeyGI17PB/VIIjFfi4+fMyZqdQ3/tcvUuGD9o6uSXTSOffxo+Jb/8OBOHPD1+HkxAUg==",
+  "_location": "/sec-api",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "sec-api",
+    "name": "sec-api",
+    "escapedName": "sec-api",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/sec-api/-/sec-api-2.0.1.tgz",
+  "_shasum": "032829514c8e37408a385f28851123da6b301d5e",
+  "_spec": "sec-api",
+  "_where": "D:\\work\\MENSTACK\\iRedar",
+  "author": {
+    "name": "Jan Schroeder"
+  },
+  "bin": {
+    "sec-api": "index.js"
+  },
+  "bugs": {
+    "url": "https://github.com/janlukasschroeder/sec-api/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "socket.io-client": "^2.2.0"
+  },
+  "deprecated": false,
+  "description": "sec.gov EDGAR API Wrapper",
+  "homepage": "https://github.com/janlukasschroeder/sec-api#readme",
+  "keywords": [
+    "sec.gov",
+    "EDGAR",
+    "API",
+    "Filings",
+    "XBRL to JSON",
+    "real-time",
+    "JSON Filings",
+    "10-K",
+    "10-Q",
+    "8-K",
+    "13-F",
+    "13-D",
+    "13-G",
+    "TO-C"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "name": "sec-api",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/janlukasschroeder/sec-api.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "2.0.1"
+}
