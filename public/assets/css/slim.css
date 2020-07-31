@@ -315,7 +315,7 @@ textarea {
   margin: 0;
   font-family: inherit;
   font-size: inherit;
-  min-height: 40px !important;
+  /*min-height: 40px !important;*/
   line-height: inherit; }
 
 button,

@@ -30,3 +30,7 @@ export const GET_USERS = 'GET_USERS';
 
 // SEC TYPES
 export const SEC_SEARCH = 'SEC_SEARCH'
+export const FILING_UPDATE = 'FILING_UPDATE'
+export const CLEAR_UPDATES = 'CLEAR_UPDATES'
+
+export const SUBSCRIBED = 'SUBSCRIBED'

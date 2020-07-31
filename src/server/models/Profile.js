@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 
+const PLANS = ["Trial", "Subscribed"];
+
 const ProfileSchema = {
   user: {
     type: mongoose.Schema.Types.ObjectId,
@@ -32,6 +34,11 @@ const ProfileSchema = {
   },
   domain: {
     type: String
+  },
+  plan: {
+    type: String,
+    enum: PLANS,
+    default: 'Trial'
   },
 };
 

@@ -200,3 +200,16 @@ exports.doUnsubscribe = async profileId => {
     organization.stripe.interval = undefined;
     await organization.save();
 };
+
+
+// Change plan for the account
+exports.doUpgrade = async (profileId, data) => {   
+    try {
+        await stripe.charges.create(data);
+        let profile = await Profile.findOne({_id: profileId});
+        profile.plan = "Subscribed"
+        await profile.save() 
+    } catch(err) {
+        console.log(err)
+    }
+};

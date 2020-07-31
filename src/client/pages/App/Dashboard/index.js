@@ -2,13 +2,17 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import api from 'sec-api';
-import { Card, Row, Col } from 'antd';
-import { searchSECByQuery } from 'client/actions/secActions';
+import { Card, Row, Col, notification, Form, Input, DatePicker, Select } from 'antd';
+import { searchSECByQuery, addFilingUpdate } from 'client/actions/secActions';
+import { upgradePayment } from 'client/actions/paymentActions';
 import { SEC_KEY } from 'client/constants/config';
+import StripeCheckout from 'client/pages/App/Upgrade';
 
 import './dashboard.css';
 
 import CompanyTable from './CompanyTable'
+import FilterForm from './FilterForm'
+
 
 export class Dashboard extends Component {
   constructor(props) {
@@ -19,20 +23,22 @@ export class Dashboard extends Component {
       pagination: {
         current: 1,
         pageSize: 10,
+        company_cik_sic: null,
+        date: null 
       },
       query: {
         "query": {
-            "query_string": {
-                "query": "formType:\"8-K\""
-            }
+          "query_string": {
+              "query": "formType:\"8-K\""
+          }
         },
         "from": "0",
         "size": "10",
         "sort": [
             {
-                "filedAt": {
-                    "order": "desc"
-                }
+              "filedAt": {
+                  "order": "desc"
+              }
             }
         ]
       }
@@ -40,12 +46,25 @@ export class Dashboard extends Component {
 
     this.handleTableChange = this.handleTableChange.bind(this)
     this.searchsecFilings = this.searchsecFilings.bind(this)
+    this.getSearchKey = this.getSearchKey.bind(this)
+    this.onCardConfirm = this.onCardConfirm.bind(this)
   }
 
   async componentDidMount() {
     await this.searchsecFilings()
     const socket = api(SEC_KEY);
-    socket.on('filing', filing => console.log(filing));
+    socket.on('filing', filing => {
+      if(filing.formType === '8-K'){
+        this.props.addFilingUpdate(filing)
+
+        console.log(filing)
+        notification.info({
+          message: `New Filing`,
+          description: filing.description,
+          placement: "bottomLeft"
+        });
+      }
+    });
   }
 
   async searchsecFilings() {
@@ -57,6 +76,36 @@ export class Dashboard extends Component {
       // Handle auth error
       this.setState({ loading: false });
     }
+  }
+
+  getSearchKey(keys) {
+    let query_string = "formType:\"8-K\""
+
+    console.log(keys)
+    if(keys.company) 
+      query_string += ` AND (companyName:${keys.company} OR cik:${keys.company} OR entities.sic:${keys.company})`
+
+    if(keys.date && keys.date.length === 2)
+      query_string += ` AND filedAt:{${keys.date[0].format('YYYY-MM-DD')} TO ${keys.date[1].format('YYYY-MM-DD')}}`
+
+    this.setState({
+      query: {
+        ...this.state.query,
+        "query": {
+          "query_string": {
+              "query": query_string
+          }
+        },
+        "from": (this.state.pagination.current-1)*this.state.pagination.pageSize,
+        "size": this.state.pagination.pageSize
+      }
+    }, async () => {
+      await this.searchsecFilings()
+    })
+  }
+
+  onCardConfirm(data) {
+    this.props.upgradePayment(data)
   }
 
   handleTableChange(pagination, filters, sorter) {
@@ -77,16 +126,23 @@ export class Dashboard extends Component {
     const {secFilings} = this.props
 
     return (
-      <div className="container-fluid">
-        <Row className="w-100" gutter={16}>
-          <Col span={6}>
+      <div className="container-fluid dashboard-page">
+        <Row gutter={16}>
+          <Col lg={6}>
             <Card
-              style={{ width: "100%" }}
+              className="w-100 mb-4"
             >
-              <Card.Meta title="Search & Filter" description="description ..." />
-            </Card>
+              <Card.Meta title="Search & Filter"/>
+                <FilterForm 
+                  callback={
+                    (keys) => this.getSearchKey(keys)
+                  }
+                />
+                <StripeCheckout 
+                  onCardConfirm={data => this.onCardConfirm(data)}/>
+              </Card>
           </Col>
-          <Col span={18}>
+          <Col lg={18}>
           	<Card
               style={{ width: "100%" }}
             >
@@ -113,7 +169,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  searchSECByQuery
+  searchSECByQuery,
+  upgradePayment,
+  addFilingUpdate
 }, dispatch);
 
 

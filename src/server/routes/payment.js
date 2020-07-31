@@ -23,6 +23,16 @@ router.post(
     paymentController.changePlan,
 );
 
+
+// @route POST api/payment/changePlan
+// @desc Register subscription plans
+// @access Private
+router.post(
+    '/upgrade',
+    passport.authenticate('jwt', {session: false}),
+    paymentController.upgrade,
+);
+
 // @route DELETE api/payment/deregister
 // @desc Remove subscription plans
 // @access Private

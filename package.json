@@ -63,6 +63,7 @@
     "react-scripts": "^2.1.5",
     "react-select": "^2.4.3",
     "react-smooth": "^1.0.5",
+    "react-stripe-checkout": "^2.6.3",
     "react-stripe-elements": "^3.0.0",
     "redux": "^4.0.1",
     "redux-logger": "^3.0.6",

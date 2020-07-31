@@ -24,11 +24,21 @@ const columns = [
     title: 'SIC',
     key: 'sic',
     dataIndex: 'sic',
-    render: (cell, row) => row.entities[0].sic
+    render: (cell, row) => row.entities && row.entities[0].sic
   },
   {
     title: 'Company Name',
     key: 'companyName',
+    dataIndex: 'companyName',
+  },
+  {
+    title: 'Existing Executive/Board Member',
+    key: 'existing_executive',
+    dataIndex: 'companyName',
+  },
+  {
+    title: 'New Executive / Board member',
+    key: 'new_executive',
     dataIndex: 'companyName',
   },
   {
@@ -53,7 +63,6 @@ const columns = [
 
 
 const CompanyTable = ({loading, pagination, onChange, dataSource}) => {
-  console.log(dataSource)
   return (
     <Table 
       columns={columns} 

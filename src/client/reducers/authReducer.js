@@ -2,7 +2,8 @@ import {
   CLEAR_CURRENT_PROFILE, 
   EDIT_PROFILE, 
   GET_CURRENT_USER_PROFILE, 
-  SET_CURRENT_USER
+  SET_CURRENT_USER,
+  SUBSCRIBED
 } from '../constants/types';
 import isEmpty from '../utils/isEmpty';
 
@@ -24,6 +25,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         profile: action.payload.profile
+      };
+
+    case SUBSCRIBED:
+      return {
+        ...state,
+        profile: {...state.profile, plan: 'Subscribed'}
       };
     case EDIT_PROFILE: {
       return {

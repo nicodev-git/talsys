@@ -18,8 +18,32 @@ class Header extends Component {
   };
 
   render() {
-    const { profile } = this.props;
+    const { profile, filingUpdates } = this.props;
     const firstName = profile.firstName;
+    const plan = profile.plan;
+
+    const notifictions = filingUpdates.map((notification, index) => {
+      console.log(notification)
+      let url = "/notifications/view/" + notification.id;
+      if (notification.type == "Notification") {
+        url = "/notifications/view/" + notification.id;
+      }
+      else if (notification.type == "Submission") {
+        url = "/modules/referrals/"; 
+      }
+      return (
+          <React.Fragment key={index}>
+            <a href={url} className="dropdown-link">
+              <div className="media">
+                <div className="media-body">
+                  <h6>{notification.companyName}</h6>
+                  <span>{notification.description}</span>
+                </div>
+              </div>
+            </a>
+          </React.Fragment>
+        )
+    })
 
     return (
       <div className="slim-header">
@@ -43,10 +67,32 @@ class Header extends Component {
           </div>
 
           <div className="slim-header-right">
+            <div className="dropdown dropdown-b">
+              <Link
+                to=""
+                className="header-notification"
+                data-toggle="dropdown"
+              >
+                <i className="icon ion-ios-bell-outline" />
+                {this.props.filingUpdates.length == 0 ? "" : <span className="indicator" /> }
+              </Link>
+              <div className="dropdown-menu">
+                <div className="dropdown-menu-header">
+                  <h6 className="dropdown-menu-title">FEEDS</h6>
+                  <div>
+                    <Link to="/">Mark All as Read</Link>
+                  </div>
+                </div>
+                <div className="dropdown-list">
+                  {notifictions}
+                  
+                </div>
+              </div>
+            </div>
             <div className="dropdown dropdown-c">
               <Link to="/" className="logged-user" data-toggle="dropdown">
                 <img src="http://via.placeholder.com/500x500" alt="" />
-                <span>{firstName}</span>
+                <span>{firstName}({plan})</span>
                 <i className="fa fa-angle-down" />
               </Link>
               <div className="dropdown-menu dropdown-menu-right">
@@ -72,7 +118,8 @@ class Header extends Component {
 }
 
 const mapStateToProps = state => ({
-  profile: state.auth.profile
+  profile: state.auth.profile,
+  filingUpdates: state.sec.filingUpdates
 });
 
 export default connect(

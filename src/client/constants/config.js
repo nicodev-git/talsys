@@ -20,6 +20,14 @@ export const LINKEDIN_URL = getURLWithQueryParams('https://www.linkedin.com/oaut
 
 
 // SEC.API KEY
-export const SEC_KEY = '349d74770c0a4e2c9676b154ee1bb8ce641531c62f3b6a9b8e87a0c75ea3db1c'
+export const SEC_KEY = '36cbcc2761c237cae2a541a6978c2497b141e211fb85e5d748a5f396eb067b3d'
 export const SEC_QUERY_API_URL = 'https://api.sec-api.io'
 export const SEC_STREAM_API_URL = 'https://api.sec-api.io:3334/all-filings'
+
+
+// STRIPE KEY
+export const STRIPE_PUBLISHABLE = "pk_test_51H7UKEFoYeC8XD3iyHq1HwmHSsTOv3TPELn8VDjmroHZ1gajd8fbo139MXRjo0wrVbaHCQhiCYxd139ZMX8pz6Hg00CugT2Cwc"
+
+export const COMPANY_NAME = "TelSys"
+export const STRIPE_DESCRIPTION = "Upgrade"
+export const UPGRADE_AMOUNT = 50

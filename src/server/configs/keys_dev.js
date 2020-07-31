@@ -8,8 +8,8 @@ module.exports = {
   infoEmail: 'info@iradardata.com',
   infoEmailPassword: '1nfoD4t4*',
   stripe: {
-    publishable_key: 'pk_test_4fDaBtOFHufm0tSbCvsqsfjR00kRisY7Sg',
-    secret_key: 'sk_test_P4tkJKy7NrS0JAk3SA36lWfw00B3TazSEA',
+    publishable_key: 'pk_test_51H7UKEFoYeC8XD3iyHq1HwmHSsTOv3TPELn8VDjmroHZ1gajd8fbo139MXRjo0wrVbaHCQhiCYxd139ZMX8pz6Hg00CugT2Cwc',
+    secret_key: 'sk_test_51H7UKEFoYeC8XD3iOJcDUqWQiNTeJ081lqYGcHPs1yflPcKzGIje97qbdeFa0wlO7MbrKPFDiEi0EeAX0I6gqjBY003hf5qKxH',
     product: 'prod_FClDOv1JvMnOJq'
   },
 
