@@ -1,23 +1,30 @@
 import axios from 'axios';
 import { SEC_SEARCH, FILING_UPDATE } from 'client/constants/types';
-import { SEC_KEY, SEC_QUERY_API_URL } from 'client/constants/config';
+import { SEC_KEY, SEC_QUERY_API_URL, API_URL } from 'client/constants/config';
 import setAuthToken from 'client/utils/setAuthToken';
 import AntNotification from 'client/components/Alert';
-
 
 export const searchSECByQuery = (query_data) => async dispatch => {
   // Set SEC API key to Auth header
   try {
-    setAuthToken(SEC_KEY);
-  	const res  = await axios.post(SEC_QUERY_API_URL, query_data);
-  	dispatch({
-      type: SEC_SEARCH,
-      payload: res.data
-    });
+  	const res = await fetch(SEC_QUERY_API_URL, 
+      {
+        method: 'post', 
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        },
+        body: JSON.stringify(query_data)
+      })
 
-    // const res1 = await axios.get('https://www.sec.gov/Archives/edgar/data/783324/000110465920087873/0001104659-20-087873-index.htm')
-
-    // console.log(res1)
+    res.json().then(data => {
+      dispatch({
+        type: SEC_SEARCH,
+        payload: data
+      });
+    }).catch((err) => {
+      throw err
+    })
+  	
   } catch( error ) {
     AntNotification('error', 'SEC API Failed', "Something wrong")
   }  
@@ -28,4 +35,14 @@ export const addFilingUpdate = (new_filing) => async dispatch => {
     type: FILING_UPDATE,
     payload: new_filing
   });
+}
+
+export const getFilingHtml  = async (url) => {
+  try {
+    const res = await axios.post(`${API_URL}/api/sec/html`, {url: url});
+    return res.data
+  } catch( error ) {
+    AntNotification('error', 'SEC API Failed', "Something wrong")
+    return error
+  }  
 }

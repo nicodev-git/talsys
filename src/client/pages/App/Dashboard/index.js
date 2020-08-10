@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import moment from 'moment'
 import api from 'sec-api';
 import { Card, Row, Col, notification, Form, Input, DatePicker, Select } from 'antd';
 import { searchSECByQuery, addFilingUpdate } from 'client/actions/secActions';
@@ -14,6 +15,18 @@ import CompanyTable from './CompanyTable'
 import FilterForm from './FilterForm'
 
 
+const INITIAL_QUERY = {
+  "dateRange": "custom",
+  "startdt": "2000-01-01",
+  "enddt": moment(new Date()).format('YYYY-MM-DD'),
+  "category": "all",
+  "locationType": "located",
+  "locationCode": "all",
+  "forms": ["8-K"],
+  "page": 1,
+  "from": 0
+}
+
 export class Dashboard extends Component {
   constructor(props) {
     super(props);
@@ -22,26 +35,9 @@ export class Dashboard extends Component {
       loading: true,
       pagination: {
         current: 1,
-        pageSize: 10,
-        company_cik_sic: null,
-        date: null 
+        pageSize: 100
       },
-      query: {
-        "query": {
-          "query_string": {
-              "query": "formType:\"8-K\""
-          }
-        },
-        "from": "0",
-        "size": "10",
-        "sort": [
-            {
-              "filedAt": {
-                  "order": "desc"
-              }
-            }
-        ]
-      }
+      query: INITIAL_QUERY
     };
 
     this.handleTableChange = this.handleTableChange.bind(this)
@@ -52,19 +48,18 @@ export class Dashboard extends Component {
 
   async componentDidMount() {
     await this.searchsecFilings()
-    const socket = api(SEC_KEY);
-    socket.on('filing', filing => {
-      if(filing.formType === '8-K'){
-        this.props.addFilingUpdate(filing)
+    // const socket = api(SEC_KEY);
+    // socket.on('filing', filing => {
+    //   if(filing.formType === '8-K'){
+    //     this.props.addFilingUpdate(filing)
 
-        console.log(filing)
-        notification.info({
-          message: `New Filing`,
-          description: filing.description,
-          placement: "bottomLeft"
-        });
-      }
-    });
+    //     notification.info({
+    //       message: `New Filing`,
+    //       description: filing.description,
+    //       placement: "bottomLeft"
+    //     });
+    //   }
+    // });
   }
 
   async searchsecFilings() {
@@ -79,26 +74,28 @@ export class Dashboard extends Component {
   }
 
   getSearchKey(keys) {
-    let query_string = "formType:\"8-K\""
+    let newQuery = Object.assign({}, this.state.query)
 
-    console.log(keys)
-    if(keys.company) 
-      query_string += ` AND (companyName:${keys.company} OR cik:${keys.company} OR entities.sic:${keys.company})`
+    if(keys.clear) {
+      newQuery = INITIAL_QUERY
+    } else {
 
-    if(keys.date && keys.date.length === 2)
-      query_string += ` AND filedAt:{${keys.date[0].format('YYYY-MM-DD')} TO ${keys.date[1].format('YYYY-MM-DD')}}`
+      if(keys.entityName) 
+        newQuery.entityName = keys.entityName
+
+      if(keys.q){
+        newQuery.q = keys.q
+      }
+
+      if(keys.daterange) {
+        newQuery.startdt = keys.daterange[0].format('YYYY-MM-DD')
+        newQuery.enddt = keys.daterange[1].format('YYYY-MM-DD')
+      }
+
+    }
 
     this.setState({
-      query: {
-        ...this.state.query,
-        "query": {
-          "query_string": {
-              "query": query_string
-          }
-        },
-        "from": (this.state.pagination.current-1)*this.state.pagination.pageSize,
-        "size": this.state.pagination.pageSize
-      }
+      query: newQuery
     }, async () => {
       await this.searchsecFilings()
     })
@@ -114,7 +111,7 @@ export class Dashboard extends Component {
       query: {
         ...this.state.query,
         "from": (pagination.current-1)*pagination.pageSize,
-        "size": pagination.pageSize
+        "page": pagination.current
       }
     }, async () => {
       await this.searchsecFilings()
@@ -127,35 +124,36 @@ export class Dashboard extends Component {
 
     return (
       <div className="container-fluid dashboard-page">
-        <Row gutter={16}>
-          <Col lg={6}>
+        <Row gutter={30}>
+          <Col span={7}>
             <Card
               className="w-100 mb-4"
             >
               <Card.Meta title="Search & Filter"/>
-                <FilterForm 
-                  callback={
-                    (keys) => this.getSearchKey(keys)
-                  }
-                />
-                <StripeCheckout 
-                  onCardConfirm={data => this.onCardConfirm(data)}/>
-              </Card>
+              <FilterForm 
+                callback={
+                  (keys) => this.getSearchKey(keys)
+                }
+              />
+              <StripeCheckout 
+                onCardConfirm={data => this.onCardConfirm(data)}/>
+            </Card>
           </Col>
-          <Col lg={18}>
-          	<Card
+          <Col span={17}>
+            <Card
               style={{ width: "100%" }}
             >
-            	<CompanyTable 
+              <CompanyTable 
                 loading={loading}
-                dataSource={secFilings && secFilings.filings}
+                searchWord={this.state.query.q}
+                dataSource={secFilings && secFilings.hits.hits}
                 pagination={{
                   ...pagination, 
-                  total: secFilings && secFilings.total.value || 10
+                  total: secFilings && secFilings.hits.total.value || 100
                 }}
                 onChange={this.handleTableChange}
               />
-           	</Card>
+             </Card>
           </Col>
         </Row>
       </div>

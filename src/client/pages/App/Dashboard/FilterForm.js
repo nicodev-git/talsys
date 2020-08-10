@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import { Form, Input, DatePicker, Select, Button } from 'antd';
-
+import { Form, Input, DatePicker, Select, Button, Row, Col } from 'antd';
 
 const FilterForm = (props) => {
 
@@ -14,6 +13,12 @@ const FilterForm = (props) => {
 	    });
 	}
 
+
+  const clearForm = () => {
+    props.form.resetFields()
+    props.callback({clear: true})
+  }
+
 	const { getFieldDecorator } = props.form;
 
 	return(
@@ -23,69 +28,63 @@ const FilterForm = (props) => {
       className="mt-4"
     >
       <Form.Item
-        label="Company Name, CIK, SIC"
-        name="company"
+        label="Document word or phrase"
+        name="q"
         className="mb-2"
       >
-      	{getFieldDecorator('company')(
-        	<Input />
+        {getFieldDecorator('q')(
+          <Input />
+        )}
+      </Form.Item>
+      <Form.Item
+        label="Company name, CIK number or individual's name"
+        name="entityName"
+        className="mb-2"
+      >
+        {getFieldDecorator('entityName')(
+          <Input />
         )}
       </Form.Item>
       <Form.Item
         label="Filed Date Range"
-        name="username"
+        name="daterange"
         className="mb-2"
       >
-        {getFieldDecorator('date')(
+        {getFieldDecorator('daterange')(
           <DatePicker.RangePicker />
         )}
       </Form.Item>
-      <Form.Item
-        label="Person"
-        name="person"
-        className="mb-2"
-      >
-      	{getFieldDecorator('person')(
-        	<Input />
-        )}
-      </Form.Item>
+
       <Form.Item
         label="Location"
-        name="username"
+        name="location"
         className="mb-2"
       >
-      	{getFieldDecorator('location')(
-        	<Input />
+        {getFieldDecorator('location')(
+          <Input />
         )}
       </Form.Item>
       
-      <Form.Item
-        label="Position"
-        name="username"
-        className="mb-2"
-      >
-      	{getFieldDecorator('position')(
-          <Select
-            mode="multiple"
-            style={{ width: '100%' }}
-            placeholder="Please select"
-            initialValue={['cto', 'ceo']}
-          >
-            <Select.Option key="ceo">CEO</Select.Option>
-            <Select.Option key="cto">CFO</Select.Option>
-            <Select.Option key="cfo">CTO</Select.Option>
-            <Select.Option key="co">CEO</Select.Option>
-          </Select>
-       )}
-      </Form.Item>
-      <Form.Item className="mt-4">
-      	<Button type="secondary" htmlType="button" className="mr-3">
-        	Save Filter
-      	</Button>
-      	<Button type="primary" htmlType="submit" icon="search">
-        	Search
-      	</Button>
-      </Form.Item>
+      <Row className="mt-4">
+        <Col lg={12}>
+          <Form.Item >
+            <Button type="primary" htmlType="submit" icon="search">
+              Search
+            </Button>
+            <Button type="secondary" htmlType="button" className="ml-3" onClick={() => clearForm()}>
+              Clear
+            </Button>
+          </Form.Item>
+        </Col>
+        <Col lg={12} className="text-right">
+          <Form.Item >
+            <Button type="secondary" htmlType="button">
+              Save Filter
+            </Button>
+          </Form.Item>
+        </Col>
+      </Row>
+      
     </Form>
 	)
 }

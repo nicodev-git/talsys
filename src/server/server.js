@@ -5,6 +5,7 @@ const passport = require('passport');
 const cors = require('cors');
 const morgan = require('morgan');
 const path = require('path');
+const fetch = require('node-fetch')
 
 const logger = require('./configs/logger');
 
@@ -19,6 +20,7 @@ const notifications = require('./routes/notifications');
 const payment = require('./routes/payment');
 const message = require('./routes/message');
 const inbox = require('./routes/inbox');
+const sec = require('./routes/secapi');
 const socketnotification = require('./routes/socketnotification');
 
 const sockets = require('./controllers/sockets');
@@ -68,6 +70,7 @@ require('./configs/passport')(passport);
 
 // Use routes
 app.use('/api/users', users);
+app.use('/api/sec', sec);
 app.use('/api/organizations', organizations);
 app.use('/api/payment', payment);
 app.use('/api/submissions', submissions);
@@ -87,6 +90,7 @@ if (!debugMode) {
 }
 
 app.use(require('./helpers/error-handler'));
+
 
 app.get('/*', function (req, res) {
   if (req.xhr || req.headers.accept.indexOf('json') > -1) {

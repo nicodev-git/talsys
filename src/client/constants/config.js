@@ -21,7 +21,7 @@ export const LINKEDIN_URL = getURLWithQueryParams('https://www.linkedin.com/oaut
 
 // SEC.API KEY
 export const SEC_KEY = '36cbcc2761c237cae2a541a6978c2497b141e211fb85e5d748a5f396eb067b3d'
-export const SEC_QUERY_API_URL = 'https://api.sec-api.io'
+export const SEC_QUERY_API_URL = 'https://efts.sec.gov/LATEST/search-index'
 export const SEC_STREAM_API_URL = 'https://api.sec-api.io:3334/all-filings'
 
 
