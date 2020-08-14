@@ -222,7 +222,6 @@ exports.postLinkedinLogin = async (req, res) => {
 
     let user = await User.findOne({ email });
 
-      console.log(user)
     if (!user) {
       user = await new User({
         email,

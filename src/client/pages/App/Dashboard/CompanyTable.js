@@ -4,6 +4,7 @@ import { Card, Row, Col, Table, Tag, Space, Modal, Button, Spin } from 'antd';
 import { getFilingHtml } from 'client/actions/secActions';
 
 const filing_basic_url = "https://www.sec.gov/Archives/edgar/data"
+const flter_item = '5.02'
 
 const CompanyTable = ({loading, pagination, onChange, dataSource, searchWord}) => {
   const [visible, setVisible] = useState(false)
@@ -79,11 +80,12 @@ const CompanyTable = ({loading, pagination, onChange, dataSource, searchWord}) =
         return name.join(' ')
       }
     },
-    // {
-    //   title: 'Existing Executive/Board Member',
-    //   key: 'existing_executive',
-    //   dataIndex: 'companyName',
-    // },
+    {
+      title: 'Location',
+      key: 'biz_locations',
+      dataIndex: 'biz_locations',
+      render: (cell, row) => row._source.biz_locations[0]
+    },
     // {
     //   title: 'New Executive / Board member',
     //   key: 'new_executive',
@@ -142,7 +144,7 @@ const CompanyTable = ({loading, pagination, onChange, dataSource, searchWord}) =
         columns={columns} 
         rowKey={record => record._id}
         scroll={{ x: 1200 }}
-        dataSource={dataSource} 
+        dataSource={(dataSource || []).filter(data => data._source.items.includes(flter_item))} 
         pagination={pagination}
         loading={loading} 
         onChange={onChange}

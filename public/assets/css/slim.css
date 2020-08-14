@@ -165,7 +165,7 @@ body {
   font-size: 0.875rem;
   font-weight: 400;
   line-height: 1.5;
-  color: #868ba1;
+  color: #707070 !important;
   text-align: left;
   background-color: #f0f2f7; }
 
@@ -179,11 +179,14 @@ hr {
 
 h1, h2, h3, h4, h5, h6 {
   margin-top: 0;
+  color: #707070 !important;
   margin-bottom: 0.5rem; }
 
 p {
   margin-top: 0;
+  color: #707070 !important;
   margin-bottom: 1rem; }
+
 
 abbr[title],
 abbr[data-original-title] {
@@ -6415,7 +6418,7 @@ a.text-dark:hover, a.text-dark:focus {
   color: #868ba1 !important; }
 
 .text-muted {
-  color: #6c757d !important; }
+  color: #C4C4C4 !important; }
 
 .text-black-50 {
   color: rgba(0, 0, 0, 0.5) !important; }
@@ -41184,3 +41187,27 @@ a.hover-white-8:hover, a.hover-white-8:focus {
 
 .mx-wd-1350 {
   max-width: 1350px; }
+
+
+
+.ant-btn-round {
+  border-color: #4C84FF !important;
+  color: #4C84FF !important;
+}
+
+.ant-btn-primary {
+  background-color: #4C84FF !important;
+  color: white !important;
+}
+
+.ant-btn-primary:hover {
+  background-color: #1d7dd8 !important;
+}
+
+.ant-divider span {
+  color: #707070 !important;
+}
+
+.ant-form-explain, .ant-form-extra {
+  font-size: 12px !important;
+}

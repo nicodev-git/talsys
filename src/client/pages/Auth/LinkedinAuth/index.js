@@ -7,6 +7,7 @@ import { LINKEDIN_URL, LINKEDIN_STATE } from 'client/constants/config'
 import AntNotification from 'client/components/Alert'
 import {loginWithLinkedin} from 'client/actions/authActions';
 
+import Linkedin from 'client/assets/images/linkedin.svg'
 
 const LinkedinAuthButton = (props) => {
   let popup = null
@@ -36,9 +37,9 @@ const LinkedinAuthButton = (props) => {
   }
 
   return (
-    <Button htmlType="button" loading={loading} className="login-form-button" onClick={() => signInWithLinkedin()}>
-      Signin with Linkedin
-    </Button>
+    <div onClick={() => signInWithLinkedin()}>
+      <img src={Linkedin} width="100%"/>
+    </div>
   );
 }
 
