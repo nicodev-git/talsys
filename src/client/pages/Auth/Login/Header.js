@@ -7,8 +7,8 @@ import Logo from "client/assets/images/logo.svg"
 
 const Header = () => {
 	return(
-		<div className="slim-header" style={{borderBottom: 'none'}}>
-      <div className="container-fluid px-5">
+		<div className="slim-header" style={{borderBottom: 'none', padding: '0 3%'}}>
+      <div className="container-fluid">
         <div className="slim-header-left">
           <h2 className="slim-logo">
             <Link to="/">
@@ -17,7 +17,7 @@ const Header = () => {
           </h2>
         </div>
         <div className="slim-header-right">
-        	<span className="text-muted mr-3">Don't have an account?</span>
+        	<span className="text-muted mr-3 d-none d-md-block">Don't have an account?</span>
 	      	<Link to="/register">
 	      		<Button shape="round" size={'large'} style={{width: 120}}>Sign Up</Button>
 	      	</Link>  	

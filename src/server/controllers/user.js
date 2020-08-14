@@ -33,7 +33,6 @@ exports.postClientRegister = async (req, res) => {
   const {
     email,
     password,
-    passwordConfirmation,
     phone,
     services,
     firstName,
@@ -55,12 +54,6 @@ exports.postClientRegister = async (req, res) => {
   if (password.length < 6) {
     return res.status(422).json({
       errorMsg: 'Password must be at least 6 characters',
-    });
-  }
-
-  if (password !== passwordConfirmation) {
-    return res.status(422).json({
-      errorMsg: 'Password is not a same as confirmation',
     });
   }
 

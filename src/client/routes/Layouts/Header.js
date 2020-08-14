@@ -4,7 +4,7 @@ import { logoutUser } from 'client/actions/authActions';
 import { connect } from 'react-redux';
 import ReactNotification from "react-notifications-component";
 
-import WhiteLogo from "client/assets/images/logo-white.png"
+import WhiteLogo from "client/assets/images/logo.svg"
 
 
 class Header extends Component {
@@ -46,25 +46,16 @@ class Header extends Component {
     })
 
     return (
-      <div className="slim-header">
+      <div className="slim-header" style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
         <div className="container-fluid px-5">
           <div className="slim-header-left">
             <h2 className="slim-logo">
               <Link to="/">
-                <img src={WhiteLogo} width="150"/>
+                <img src={WhiteLogo} width="120"/>
               </Link>
             </h2>
           </div>
-          <div className="search-box">
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Search"
-            />
-            <button className="btn btn-primary">
-              <i className="fa fa-search" />
-            </button>
-          </div>
+          
 
           <div className="slim-header-right">
             <div className="dropdown dropdown-b">

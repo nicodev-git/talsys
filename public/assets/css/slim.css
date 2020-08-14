@@ -2288,7 +2288,8 @@ input[type="button"].btn-block {
   list-style: none;
   background-color: #fff;
   background-clip: padding-box;
-  border: 1px solid rgba(0, 0, 0, 0.15);
+
+  border: 1px solid rgba(0, 0, 0, 0.15) !important;
   border-radius: 3px; }
 
 .dropdown-menu-right {
@@ -41210,4 +41211,8 @@ a.hover-white-8:hover, a.hover-white-8:focus {
 
 .ant-form-explain, .ant-form-extra {
   font-size: 12px !important;
+}
+
+.ant-btn-primary[disabled] {
+  opacity: 0.8;
 }

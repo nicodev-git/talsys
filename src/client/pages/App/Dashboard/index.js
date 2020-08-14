@@ -48,18 +48,20 @@ export class Dashboard extends Component {
 
   async componentDidMount() {
     await this.searchsecFilings()
-    // const socket = api(SEC_KEY);
-    // socket.on('filing', filing => {
-    //   if(filing.formType === '8-K'){
-    //     this.props.addFilingUpdate(filing)
+    const socket = api(SEC_KEY);
 
-    //     notification.info({
-    //       message: `New Filing`,
-    //       description: filing.description,
-    //       placement: "bottomLeft"
-    //     });
-    //   }
-    // });
+    socket.on('filing', filing => {
+      console.log(filing)
+      if(filing.formType === '8-K'){
+        this.props.addFilingUpdate(filing)
+
+        notification.info({
+          message: `New Filing`,
+          description: filing.description,
+          placement: "bottomLeft"
+        });
+      }
+    });
   }
 
   async searchsecFilings() {

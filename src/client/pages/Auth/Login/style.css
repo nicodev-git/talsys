@@ -3,33 +3,17 @@ body {
 }
 
 .login-screen {
-    display: flex;
-    flex: 1;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
     background-color: white !important;
 }   
 
-.login-screen .landing-intro-screen .signin-left {
-    max-height: 415px;
-}
-
-.login-left,
-.login-right {
-    flex: 1;
-    height: 100%;
-}
-
 .login-left img {
-    /*width: 100%;*/
-    height: 90%;
+    width: 90%;
 }
 
 .login-box {
     background-color: white;
+    align-items: center;
     flex: 1;
-    height: calc(100% - 80px);
 }
 
 .login-form-button {
