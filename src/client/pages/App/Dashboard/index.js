@@ -107,13 +107,26 @@ export class Dashboard extends Component {
     this.props.upgradePayment(data)
   }
 
-  handleTableChange(pagination, filters, sorter) {
+  // handleTableChange(pagination, filters, sorter) {
+  //   this.setState({
+  //     pagination: {current: pagination.current, pageSize: pagination.pageSize},
+  //     query: {
+  //       ...this.state.query,
+  //       "from": (pagination.current-1)*pagination.pageSize,
+  //       "page": pagination.current
+  //     }
+  //   }, async () => {
+  //     await this.searchsecFilings()
+  //   })
+  // }
+
+  handleTableChange(page) {
     this.setState({
-      pagination: {current: pagination.current, pageSize: pagination.pageSize},
+      pagination: {current: page},
       query: {
         ...this.state.query,
-        "from": (pagination.current-1)*pagination.pageSize,
-        "page": pagination.current
+        "from": (page-1)*100,
+        "page": page
       }
     }, async () => {
       await this.searchsecFilings()
