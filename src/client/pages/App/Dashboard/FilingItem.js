@@ -20,8 +20,8 @@ function extractContent(htmlString, space) {
 	text = text.replace(new RegExp('<b>', 'g'), 'OPENBTAG')
 				.replace(new RegExp('</b>', 'g'), 'CLOSEBTAG')
 				.replace(/<[^>]+>/g, 'talsysBricker')
-				.replace(new RegExp('OPENBTAG', 'g'), '1111')
-				.replace(new RegExp('CLOSEBTAG', 'g'), '2222')
+				.replace(new RegExp('OPENBTAG', 'g'), 'OPENBTAG')
+				.replace(new RegExp('CLOSEBTAG', 'g'), 'CLOSEBTAG')
 
   return text
 };
@@ -43,6 +43,7 @@ const FilingItem = ({item, openDetailModal, documentUrl}) => {
 
 	return(
 		<List.Item
+			style={{display: content?'':'none'}}
       key={item._id}
       actions={[
         <span key="list-file_date">
