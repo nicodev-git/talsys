@@ -9,20 +9,24 @@ import { GET_ERRORS } from './client/constants/types';
 import LoginPage from './client/pages/Auth/Login';
 import RegisterPage from './client/pages/Auth/Register';
 import LinkedinCallback from './client/pages/Auth/LinkedinCallback';
-import checkAuth from './client/utils/checkAuth';
+
+// Private Route
 import PrivateRoute from './client/routes/PrivateRoute';
+
+import checkAuth from './client/utils/checkAuth';
 import ScrollToTop from './client/utils/ScrollToTop';
 import store from './client/utils/store';
 
 // Dashoboard
 import DashboardPage from './client/pages/App/Dashboard';
 
+// Profile
+import ProfilePage from './client/pages/App/Profile';
 
 import AppLoading from './client/components/Loading';
 
-
-import './App.css';
 import 'antd/dist/antd.css';
+import './App.css';
 
 axios.interceptors.response.use(
   response => {
@@ -72,8 +76,9 @@ class App extends Component {
             <Route exact path='/callback' component={LinkedinCallback} />
             <div className='App'>
               <Switch>
-                <PrivateRoute exact path='/dashboard' component={DashboardPage} />
+                <PrivateRoute exact path='/filings' component={DashboardPage} />
                 <PrivateRoute exact path='/main' component={DashboardPage} />
+                <PrivateRoute exact path='/profile' component={ProfilePage} />
               </Switch>
             </div>
           </ScrollToTop>

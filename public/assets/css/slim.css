@@ -179,12 +179,12 @@ hr {
 
 h1, h2, h3, h4, h5, h6 {
   margin-top: 0;
-  color: #707070 !important;
+  color: #707070;
   margin-bottom: 0.5rem; }
 
 p {
   margin-top: 0;
-  color: #707070 !important;
+  color: #707070;
   margin-bottom: 1rem; }
 
 
@@ -4464,7 +4464,7 @@ button.close {
   vertical-align: text-top !important; }
 
 .bg-primary {
-  background-color: #1b84e7 !important; }
+  background-color: #273773 !important; }
 
 a.bg-primary:hover, a.bg-primary:focus,
 button.bg-primary:hover,
@@ -6367,8 +6367,6 @@ button.bg-dark:focus {
 .text-white {
   color: #fff !important; }
 
-.text-primary {
-  color: #1b84e7 !important; }
 
 a.text-primary:hover, a.text-primary:focus {
   color: #146abb !important; }
@@ -41189,20 +41187,22 @@ a.hover-white-8:hover, a.hover-white-8:focus {
 .mx-wd-1350 {
   max-width: 1350px; }
 
-
+.text-primary {
+  color: #273773 !important;
+}
 
 .ant-btn-round {
-  border-color: #4C84FF !important;
-  color: #4C84FF !important;
+  border-color: #273773 !important;
+  color: #273773 !important;
 }
 
 .ant-btn-primary {
-  background-color: #4C84FF !important;
+  background-color: #273773 !important;
   color: white !important;
 }
 
 .ant-btn-primary:hover {
-  background-color: #1d7dd8 !important;
+  background-color: #1b264f !important;
 }
 
 .ant-divider span {

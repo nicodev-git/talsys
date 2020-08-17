@@ -1,4 +1,4 @@
-const EVENT_KEYWORDS = ['hire', 'fire', 'resignation of', 'appointment of', 'departure of']
+const EVENT_KEYWORDS = ['resignation of', 'appointment of', 'departure of']
 
 
 export const getEventSentences = (source) => {

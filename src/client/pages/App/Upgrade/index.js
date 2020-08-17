@@ -37,7 +37,16 @@ const Checkout = ({onCardConfirm}) =>
      currency={CURRENCY}
      stripeKey={STRIPE_PUBLISHABLE}
      allowRememberMe
-    />
+    >
+      <Button type="primary" 
+        size="large"
+        shape="round"
+        style={{maxWidth: 200}}
+        htmlType="submit" 
+      >
+        Subscribe Now
+      </Button>
+    </StripeCheckout>
   
 
 export default Checkout;

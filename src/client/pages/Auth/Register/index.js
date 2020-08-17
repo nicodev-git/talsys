@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import propTypes from 'prop-types';
 import {Link, withRouter} from 'react-router-dom';
 import { Form, Icon, Input, Button, Row, Col, Checkbox } from 'antd';
-import LandingIntro from 'client/pages/Static/Intro/LandingIntro';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {loginUser} from 'client/actions/authActions';
@@ -12,7 +11,6 @@ import {registerClientUser} from "client/actions/authActions";
 import Header from './Header'
 
 import RegisterLeft from 'client/assets/images/signupLeft.svg'
-
 
 import './style.css'
 
@@ -26,13 +24,11 @@ class RegisterForm extends Component {
     }
   }
 
-
   componentDidMount() {
     if (localStorage.getItem('jwtToken')) {
-        this.props.history.push('/dashboard');
+        this.props.history.push('/filings');
     }
   }
-
 
   handleSubmit = e => {
     e.preventDefault();

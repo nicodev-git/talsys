@@ -78,7 +78,7 @@ export const loginUser = (userData, history) => async dispatch => {
     dispatch(setCurrentUser(decoded));
 
     history.push({
-      pathname: '/dashboard',
+      pathname: '/filings',
     });
 
   } catch (error) {

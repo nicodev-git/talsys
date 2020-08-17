@@ -17,11 +17,9 @@ const getCompanyName = (source) => {
 function extractContent(htmlString, space) {
 	let text = htmlString
 
-	text = text.replace(new RegExp('<b>', 'g'), 'OPENBTAG')
-				.replace(new RegExp('</b>', 'g'), 'CLOSEBTAG')
+	text = text.replace(new RegExp('<b>', 'g'), '')
+				.replace(new RegExp('</b>', 'g'), '')
 				.replace(/<[^>]+>/g, 'talsysBricker')
-				.replace(new RegExp('OPENBTAG', 'g'), 'OPENBTAG')
-				.replace(new RegExp('CLOSEBTAG', 'g'), 'CLOSEBTAG')
 
   return text
 };

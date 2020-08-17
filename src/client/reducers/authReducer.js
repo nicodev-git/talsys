@@ -9,6 +9,7 @@ import isEmpty from '../utils/isEmpty';
 
 const initialState = {
   isAuthenticated: false,
+  expired: false,
   user: {},
   profile: {}
 };
@@ -24,13 +25,15 @@ export default function (state = initialState, action) {
     case GET_CURRENT_USER_PROFILE:
       return {
         ...state,
-        profile: action.payload.profile
+        profile: action.payload.profile,
+        expired: action.payload.expired
       };
 
     case SUBSCRIBED:
       return {
         ...state,
-        profile: {...state.profile, plan: 'Subscribed'}
+        profile: {...state.profile, plan: 'Subscribed'},
+        expired: false
       };
     case EDIT_PROFILE: {
       return {

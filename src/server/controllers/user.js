@@ -6,6 +6,7 @@ const keys = require('../configs/keys');
 const logger = require('../configs/logger');
 const nodeMailer = require('../helpers/nodemailer');
 const stripeLibrary = require('../helpers/stripeSubscription');
+const moment = require('moment')
 
 const { resetPasswordEmail } = require('../helpers/htmlMails/reset-password');
 
@@ -33,8 +34,6 @@ exports.postClientRegister = async (req, res) => {
   const {
     email,
     password,
-    phone,
-    services,
     firstName,
     lastName
   } = req.body;
@@ -81,23 +80,14 @@ exports.postClientRegister = async (req, res) => {
       user: user.id,
       email,
       lastName,
-      firstName,
-        services,
-      phoneNumber: phone,
-      domain: userDomain
+      firstName
     }).save();
-
-    const userPermission = await new Permission({
-      profile: profile._id,
-      role: "admin",
-      permissionRight: rolesToPermission["admin"]
-    });
-    await userPermission.save();
 
     return res.json({
       success: true,
       message: 'You have been successfully registered. Please login.'
     });
+
   } catch (error) {
     //logger.error(error);
     console.error(error);
@@ -112,8 +102,6 @@ exports.postClientRegister = async (req, res) => {
 // @access Public
 exports.postLogin = async (req, res) => {
   const { email, password } = req.body;
-
-  console.log(validator.isEmpty(password, { ignore_whitespace: true }));
 
   if (!password || !email) {
     return res.status(422).json({
@@ -145,18 +133,17 @@ exports.postLogin = async (req, res) => {
     }
 
     const profile = await Profile.findOne({ user });
-    const permission = await Permission.findOne({profile});
+
     if (user.firstLogin) {
       await User.findByIdAndUpdate(user.id, {firstLogin: false, lastLogin_at: new Date()});
     } else {
       await user.updateOne({lastLogin_at: new Date()});
     }
+
     const token = jwt.sign(
       {
         userId: user.id,
         profileId: profile.id,
-        role: permission.role,
-        permission: permission.permissionRight,
         username: profile.firstName + " " + profile.lastName
       },
       keys.secretOrKey,
@@ -221,8 +208,6 @@ exports.postLinkedinLogin = async (req, res) => {
         password: 'oauth2',
       });
       await user.save();
-
-      console.log(user)
 
       let profile = await new Profile({
         user: user.id,
@@ -606,13 +591,22 @@ exports.deleteUser = async (req, res) => {
 exports.getProfile = async (req, res) => {
   try {
     const profile = await Profile.findOne({ user: req.params.id });
+    const current_date = moment(new Date())
+    const expire_date = moment(profile.created_at).add(10, 'days')
+
+    // let left_days = '*'
+    let expired = false
+
+    if(profile.plan === 'Trial' && !current_date.isBefore(expire_date))
+      expired = true
 
     return res.json({
       success: true,
       profile,
+      expired: expired
     });
   } catch (error) {
-    logger.error(error);
+
     return res.status(422).json({
       alert: {
         title: 'Error!',

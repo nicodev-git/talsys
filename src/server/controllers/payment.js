@@ -135,7 +135,6 @@ exports.upgrade = async (req, res) => {
     console.log(req.body)
     const header = req.headers['authorization'];
     let tokenUserId = null;
-    let tokenUserRole = null;
     let tokenProfileId = null;
     if (typeof header !== 'undefined') {
         const bearer = header.split(' ');
@@ -147,7 +146,6 @@ exports.upgrade = async (req, res) => {
                 });
             }
             tokenUserId = decoded.userId.toString();
-            tokenUserRole = decoded.role.toString();
             tokenProfileId = decoded.profileId.toString();
         });
 

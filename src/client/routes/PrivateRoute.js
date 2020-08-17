@@ -24,12 +24,6 @@ class PrivateRoute extends Component {
   render() {
     const { component: Component, auth, permissions, ...rest } = this.props;
 
-    let navbar = null;
-    
-    const role = 'user'
-
-    if (role === 'user') navbar = <ClientNavbar />;
-
     return (
       <Route
         {...rest}
@@ -40,7 +34,6 @@ class PrivateRoute extends Component {
               <Layout.Content className="bg-white" style={{paddingTop: 100}}>
                 <Component {...props} />
               </Layout.Content>
-              <Footer />
             </Layout>
           ) : (
             <Redirect to="/" />

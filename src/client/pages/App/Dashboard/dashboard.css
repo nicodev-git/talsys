@@ -17,6 +17,10 @@
 	height: 500px;
 }
 
+.round-border {
+	border-radius: 20px;
+}
+
 mark {
 	background-color: #e7ed54 !important;
 }

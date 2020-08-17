@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import moment from 'moment'
 import api from 'sec-api';
-import { Card, Row, Col, notification, Form, Input, DatePicker, Select } from 'antd';
+import { Card, Row, Col, notification, Form, Input, DatePicker, Select, Affix } from 'antd';
 import { searchSECByQuery, addFilingUpdate } from 'client/actions/secActions';
 import { upgradePayment } from 'client/actions/paymentActions';
 import { SEC_KEY } from 'client/constants/config';
@@ -13,6 +13,10 @@ import './dashboard.css';
 
 import CompanyTable from './CompanyTable'
 import FilterForm from './FilterForm'
+
+import subscribeImg from 'client/assets/images/subscribe.svg'
+
+const flter_item = '5.02'
 
 
 const INITIAL_QUERY = {
@@ -51,8 +55,8 @@ export class Dashboard extends Component {
     const socket = api(SEC_KEY);
 
     socket.on('filing', filing => {
-      console.log(filing)
-      if(filing.formType === '8-K'){
+      
+      if(filing.formType === '8-K' && this.props.isAuthenticated && filing.description.includes(flter_item)){
         this.props.addFilingUpdate(filing)
 
         notification.info({
@@ -107,19 +111,6 @@ export class Dashboard extends Component {
     this.props.upgradePayment(data)
   }
 
-  // handleTableChange(pagination, filters, sorter) {
-  //   this.setState({
-  //     pagination: {current: pagination.current, pageSize: pagination.pageSize},
-  //     query: {
-  //       ...this.state.query,
-  //       "from": (pagination.current-1)*pagination.pageSize,
-  //       "page": pagination.current
-  //     }
-  //   }, async () => {
-  //     await this.searchsecFilings()
-  //   })
-  // }
-
   handleTableChange(page) {
     this.setState({
       pagination: {current: page},
@@ -135,42 +126,69 @@ export class Dashboard extends Component {
 
   render() {
     const {loading, pagination} = this.state
-    const {secFilings} = this.props
+    const {secFilings, expired} = this.props
 
     return (
-      <div className="container-fluid dashboard-page">
-        <Row gutter={30}>
-          <Col span={7}>
-            <Card
-              className="w-100 mb-4"
+      <div className="container-fluid dashboard-page mb-4">
+        {
+          expired?
+            <div
+              className="w-100 p-0 my-4 mx-auto"
+              style={{maxWidth: 800}}
             >
-              <Card.Meta title="Search & Filter"/>
-              <FilterForm 
-                callback={
-                  (keys) => this.getSearchKey(keys)
-                }
-              />
-              <StripeCheckout 
-                onCardConfirm={data => this.onCardConfirm(data)}/>
-            </Card>
-          </Col>
-          <Col span={17}>
-            <Card
-              style={{ width: "100%" }}
-            >
-              <CompanyTable 
-                loading={loading}
-                searchWord={this.state.query.q}
-                dataSource={secFilings && secFilings.hits.hits}
-                pagination={{
-                  ...pagination, 
-                  total: secFilings && secFilings.hits.total.value || 100
-                }}
-                onChange={this.handleTableChange}
-              />
-             </Card>
-          </Col>
-        </Row>
+              <div>
+                <img src={subscribeImg} className="mb-3 mx-auto d-sm-none w-100" style={{maxWidth: 200}}/>
+              </div>
+              <div className="d-flex align-items-center justify-content-center flex-row">
+                <img src={subscribeImg} className="mb-3 d-none d-sm-block w-100" style={{maxWidth: 300}}/>
+                <div className="mx-3 text-left">
+                  <h2 style={{color: '#8BD8BD'}}>Find More and RelevantPublic Company Talent</h2>
+                  <p className="text-muted">
+                    Go PREMIUM and use over 8,495,000 files with no attribution
+                  </p>
+                  <h1 style={{color: '#273773'}} className="mb-4">
+                    $50 <small style={{fontSize: 15}}>/ per month</small>
+                  </h1>
+                  <StripeCheckout 
+                    onCardConfirm={data => this.onCardConfirm(data)}/>
+                  <p className="text-muted mt-3">Payment will be done via Stripe</p>
+                </div>
+              </div>
+            </div>
+            :
+            <Row gutter={30}>
+              <Col lg={7}>
+                <Affix offsetTop={90}>
+                  <Card
+                    className="w-100 mb-4"
+                  >
+                    <Card.Meta title="Search & Filter"/>
+                    <FilterForm 
+                      callback={
+                        (keys) => this.getSearchKey(keys)
+                      }
+                    />
+                  </Card>
+                </Affix>
+              </Col>
+              <Col lg={17}>
+                <Card
+                  style={{ width: "100%" }}
+                >
+                  <CompanyTable 
+                    loading={loading}
+                    searchWord={this.state.query.q}
+                    dataSource={secFilings && secFilings.hits.hits}
+                    pagination={{
+                      ...pagination, 
+                      total: secFilings && secFilings.hits.total.value || 100
+                    }}
+                    onChange={this.handleTableChange}
+                  />
+                 </Card>
+              </Col>
+            </Row>
+        }
       </div>
     );
   }
@@ -178,7 +196,9 @@ export class Dashboard extends Component {
 
 
 const mapStateToProps = state => ({
-  secFilings: state.sec.secData
+  secFilings: state.sec.secData,
+  expired: state.auth.expired,
+  isAuthenticated: state.auth.isAuthenticated
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({

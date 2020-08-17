@@ -40,6 +40,10 @@ const ProfileSchema = {
     enum: PLANS,
     default: 'Trial'
   },
+  created_at: {
+    type: Date,
+    default: new Date()
+  }
 };
 
 module.exports = mongoose.model('Profile', ProfileSchema);

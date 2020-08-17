@@ -2,7 +2,6 @@ import React from 'react'
 import propTypes from 'prop-types';
 import {Link, withRouter} from 'react-router-dom';
 import { Form, Icon, Input, Button, Row, Col, Divider } from 'antd';
-import LandingIntro from 'client/pages/Static/Intro/LandingIntro';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { loginUser } from 'client/actions/authActions';
@@ -14,6 +13,7 @@ import Header from './Header'
 import LoginLeft from 'client/assets/images/loginLeft.svg'
 
 import './style.css'
+
 
 class NormalLoginForm extends React.Component {
   constructor(props) {
@@ -36,7 +36,7 @@ class NormalLoginForm extends React.Component {
 
   componentDidMount(){
     if(localStorage.getItem('jwtToken'))
-      this.props.history.push('/dashboard')
+      this.props.history.push('/filings')
   }
 
   render() {

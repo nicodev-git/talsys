@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import { Form, Input, DatePicker, Select, Button, Row, Col } from 'antd';
+import { Form, Input, DatePicker, Select, Button, Row, Col} from 'antd';
 
 const FilterForm = (props) => {
 
@@ -54,32 +54,15 @@ const FilterForm = (props) => {
           <DatePicker.RangePicker />
         )}
       </Form.Item>
-
-      <Form.Item
-        label="Location"
-        name="location"
-        className="mb-2"
-      >
-        {getFieldDecorator('location')(
-          <Input />
-        )}
-      </Form.Item>
       
       <Row className="mt-4">
-        <Col lg={12}>
+        <Col lg={24}>
           <Form.Item >
-            <Button type="primary" htmlType="submit" icon="search">
+            <Button type="primary" shape="round" htmlType="submit" icon="search" style={{width: 120}}>
               Search
             </Button>
-            <Button type="secondary" htmlType="button" className="ml-3" onClick={() => clearForm()}>
-              Clear
-            </Button>
-          </Form.Item>
-        </Col>
-        <Col lg={12} className="text-right">
-          <Form.Item >
-            <Button type="secondary" htmlType="button">
-              Save Filter
+            <Button type="secondary" shape="round" htmlType="button" className="ml-3" style={{width: 120}} onClick={() => clearForm()}>
+              Clear FIlters
             </Button>
           </Form.Item>
         </Col>
