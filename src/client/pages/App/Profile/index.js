@@ -45,9 +45,7 @@ export class ProfilePage extends Component {
                 <img src={subscribeImg} className="mb-3 d-none d-sm-block w-100" style={{maxWidth: 300}}/>
                 <div className="mx-4 text-left">
                   <h2 style={{color: '#8BD8BD'}}>Find More and RelevantPublic Company Talent</h2>
-                  <p className="text-muted">
-                    Go PREMIUM and use over 8,495,000 files with no attribution
-                  </p>
+                  
                   <h1 style={{color: '#273773'}} className="mb-4">
                     $50 <small style={{fontSize: 15}}>/ per month</small>
                   </h1>
