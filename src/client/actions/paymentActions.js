@@ -6,7 +6,6 @@ import {
 import { API_URL } from '../constants/config'
 import setAuthToken from 'client/utils/setAuthToken';
 import { loginUser } from 'client/actions/authActions';
-import checkAuth from './client/utils/checkAuth';
 
 export const upgradePayment = (data) => async dispatch => {
     try {
