@@ -40,7 +40,7 @@ self.__precacheManifest = [
     "url": "/static/media/signupLeft.af87d286.svg"
   },
   {
-    "revision": "903c779575dc9b4cabd84c5661c7e227",
+    "revision": "455323ead1d5ce7f42c7cc26679ecc0b",
     "url": "/index.html"
   }
 ];
