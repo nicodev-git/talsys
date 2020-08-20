@@ -128,7 +128,7 @@ export const loginWithLinkedin = (code, history) => async dispatch => {
     dispatch(setCurrentUser(decoded));
 
     history.push({
-      pathname: '/dashboard',
+      pathname: '/filings',
     });
 
   } catch (error) {

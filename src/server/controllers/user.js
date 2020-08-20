@@ -180,6 +180,7 @@ exports.postLinkedinLogin = async (req, res) => {
     client_secret: keys.LINKEDIN_CLIENT_SECRET
   })
 
+  console.log('linkedin ==============>', code, body)
 
   try {
     const { access_token } = await fetchJSON(keys.LINKEDIN_ACCESS_TOKEN, {
@@ -187,6 +188,8 @@ exports.postLinkedinLogin = async (req, res) => {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body
     })
+
+    console.log('linkedin ==============>', access_token)
 
     const payload = {
       method: 'GET',
@@ -226,12 +229,15 @@ exports.postLinkedinLogin = async (req, res) => {
       { expiresIn: '30d' },
     );
 
+    console.log('linkedin ==============>', token)
+    
     return res.json({
       success: true,
       token: `Bearer ${token}`,
     });
 
   } catch(error){
+    console.log(error)
     logger.error(error);
     return res.status(422).json({
       errorMsg: 'Server Error: Please try again'
