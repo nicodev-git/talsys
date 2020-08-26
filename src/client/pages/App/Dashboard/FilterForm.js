@@ -25,7 +25,7 @@ const FilterForm = (props) => {
 		<Form
       name="basic"
       onSubmit={onhandleSubmit}
-      className="mt-4"
+      className="mt-4 filter-form"
     >
       <Form.Item
         label="Document word or phrase"
@@ -33,36 +33,41 @@ const FilterForm = (props) => {
         className="mb-2"
       >
         {getFieldDecorator('q')(
-          <Input />
+          <Input size="large"/>
         )}
       </Form.Item>
+      <hr className="mb-1"/>
       <Form.Item
-        label="Company name, CIK number or individual's name"
+        label="Company name, CIK or individual's name"
         name="entityName"
         className="mb-2"
       >
         {getFieldDecorator('entityName')(
-          <Input />
+          <Input size="large"/>
         )}
       </Form.Item>
+      <hr className="mb-1"/>
       <Form.Item
         label="Filed Date Range"
         name="daterange"
         className="mb-2"
       >
         {getFieldDecorator('daterange')(
-          <DatePicker.RangePicker />
+          <DatePicker.RangePicker size="large"/>
         )}
       </Form.Item>
       
       <Row className="mt-4">
         <Col lg={24}>
-          <Form.Item >
-            <Button type="primary" shape="round" htmlType="submit" icon="search" style={{width: 120}}>
-              Search
+          <Form.Item className="mb-0">
+            <Button type="primary" shape="round" block htmlType="submit" style={{height: 45, fontSize: 16}}>
+              Apply Filters & Search
             </Button>
-            <Button type="secondary" shape="round" htmlType="button" className="ml-3" style={{width: 120}} onClick={() => clearForm()}>
-              Clear FIlters
+            
+          </Form.Item>
+          <Form.Item className="text-center">
+            <Button shape="link" htmlType="button" className="mx-auto" style={{height: 4, fontSize: 12}} onClick={() => clearForm()}>
+              <u>Clear all Filter</u>
             </Button>
           </Form.Item>
         </Col>

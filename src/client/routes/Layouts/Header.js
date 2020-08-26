@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom';
 import { logoutUser } from 'client/actions/authActions';
 import { connect } from 'react-redux';
 import ReactNotification from "react-notifications-component";
+import { Input, Icon, Affix } from 'antd'
 
-import LogoIcon from "client/assets/images/logo.png"
+import LogoIcon from "client/assets/images/logo.svg"
 
 
 class Header extends Component {
@@ -46,17 +47,16 @@ class Header extends Component {
     })
 
     return (
-      <div className="slim-header" style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
+      <div className="slim-header flex-column" style={{  zIndex: 1, width: '100%', borderBottom: 'none' }}>
         <div className="container-fluid" style={{padding: '0 3%'}}>
           <div className="slim-header-left">
             <h2 className="slim-logo">
               <Link to="/">
-                <img src={LogoIcon} width="80" height="80"/>
+                <img src={LogoIcon} height="70"/>
               </Link>
             </h2>
           </div>
-          
-
+         
           <div className="slim-header-right">
             <div className="dropdown dropdown-b">
               <Link
@@ -82,7 +82,9 @@ class Header extends Component {
             </div>
             <div className="dropdown dropdown-c">
               <Link to="/" className="logged-user" data-toggle="dropdown">
-                <img src="http://via.placeholder.com/500x500" alt="" />
+                <div className="bg-primary d-flex align-items-center justify-content-center" style={{width: 40, height: 40, borderRadius: '50%'}}>
+                  <Icon type="user" style={{color: 'white'}}/>
+                </div>
                 <span>{firstName}</span>
                 <i className="fa fa-angle-down" />
               </Link>

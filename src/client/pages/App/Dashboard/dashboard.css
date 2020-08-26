@@ -1,3 +1,4 @@
+
 .dashboard-page form label{
 	margin-bottom: 0 !important;
 	line-height: initial !important;
@@ -25,6 +26,53 @@ mark {
 	background-color: #e7ed54 !important;
 }
 
+.banner {
+	border-radius: 10px;
+	margin-bottom: -35px;
+}
+
+.header-search {
+	height: 70px;
+	max-width: 800px;
+	border-radius: 10px;
+	overflow: hidden;
+	box-shadow: 5px 10px 18px rgba(0,0,0,0.2) !important;
+	border: none !important;
+}
+
+.header-search input {
+	border: 10px !important;
+}
+
 .filing-list h4 {
-	color: #2f679a !important;
+	color: #4A5B8E !important;
+}
+
+.filter-form .ant-calendar-picker-input.ant-input,
+.filter-form input {
+	border-color: #B4B9CC !important;
+}
+
+.filter-form label {
+    white-space: pre-line;
+    text-align: left;
+}
+
+.ant-input:not(:first-child) {
+	padding-left: 80px !important;
+}
+
+.ant-list-vertical .ant-list-item {
+	border: 1px solid #D9D9D9 !important;
+	padding: 20px;
+	margin-bottom: 20px;
+	border-radius: 6px;
+	color: #4A5B8E;
+}
+
+.viewmore-btn {
+	background: #8bd8bd73 !important;
+	color: #42a482 !important;
+	border: none !important;
+	box-shadow: 0 2px 5px rgba(0,0,0,0.2) !important;
 }

@@ -11,7 +11,7 @@ export const HOST_URL = 'http://localhost:3000';
 // LINKEDIN INFO
 export const LINKEDIN_STATE = '123456'
 const LINKEDIN_SCOPE = 'r_liteprofile r_emailaddress w_member_social'
-const LINKEDIN_RIDERECT = 'http://3.20.238.99/callback';
+const LINKEDIN_RIDERECT = 'http://talsys.co/callback';
 // const LINKEDIN_RIDERECT = 'http://localhost:3000/callback';
 const LINKEDIN_CLIENT_ID = '8610tyv63vt9tn'
 export const LINKEDIN_URL = getURLWithQueryParams('https://www.linkedin.com/oauth/v2/authorization', {

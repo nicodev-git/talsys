@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import  { Button } from 'antd'
 
-import Logo from "client/assets/images/logo.png"
+import Logo from "client/assets/images/logo.svg"
 
 
 const Header = () => {
@@ -12,7 +12,7 @@ const Header = () => {
         <div className="slim-header-left">
           <h2 className="slim-logo">
             <Link to="/">
-              <img src={Logo} width="80" height="80"/>
+              <img src={Logo} height="70"/>
             </Link>
           </h2>
         </div>

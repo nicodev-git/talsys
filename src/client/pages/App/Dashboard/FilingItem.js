@@ -45,24 +45,24 @@ const FilingItem = ({item, openDetailModal, documentUrl}) => {
       key={item._id}
       actions={[
         <span key="list-file_date">
-          <Icon type="clock-circle" style={{ marginRight: 8, fontWeight: 'bold' }} />
+          <Icon type="clock-circle" style={{ marginRight: 8, fontWeight: 'bold', color: '#273773' }} />
           {item._source.file_date}
         </span >,
         <span key="list-location">
-          <i className="fa fa-map-marker" style={{ marginRight: 8 }} />
+          <i className="fa fa-map-marker" style={{ marginRight: 8, color: "#273773" }} />
           {item._source.biz_locations[0]}
         </span>,
         <span key="list-file_sic">
-          <span style={{marginRight: 8}}><strong>SIC:</strong></span>
+          <span style={{marginRight: 8, color: "#273773"}}>SIC:</span>
           {item._source.sics.join(',')}
         </span>,
         <span key="list-file_cik">
-          <span style={{marginRight: 8}}><strong>CIK:</strong></span>
+          <span style={{marginRight: 8, color: "#273773"}}>CIK:</span>
           {item._source.ciks.join(',')}
         </span>
       ]}
       extra={
-        <Button icon="eye" shape="round" onClick={() => openDetailModal(item)}>View More</Button>
+        <Button shape="round" className="viewmore-btn" onClick={() => openDetailModal(item)}>View More</Button>
       }
     >
       <Skeleton title={false} loading={parsing} active>

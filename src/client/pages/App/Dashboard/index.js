@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import moment from 'moment'
 import api from 'sec-api';
-import { Card, Row, Col, notification, Form, Input, DatePicker, Select, Affix } from 'antd';
+import { Card, Row, Col, notification, Form, Input, DatePicker, Select, Affix, Icon } from 'antd';
 import { searchSECByQuery, addFilingUpdate } from 'client/actions/secActions';
 import { upgradePayment } from 'client/actions/paymentActions';
 import { SEC_KEY } from 'client/constants/config';
@@ -129,7 +129,7 @@ export class Dashboard extends Component {
     const {secFilings, expired} = this.props
 
     return (
-      <div className="container-fluid dashboard-page mb-4">
+      <div className="container-fluid dashboard-page mb-5">
         {
           expired?
             <div
@@ -154,38 +154,49 @@ export class Dashboard extends Component {
               </div>
             </div>
             :
-            <Row gutter={30}>
-              <Col lg={7}>
-                <Affix offsetTop={90}>
-                  <Card
-                    className="w-100 mb-4"
-                  >
-                    <Card.Meta title="Search & Filter"/>
-                    <FilterForm 
-                      callback={
-                        (keys) => this.getSearchKey(keys)
-                      }
+            <>
+              <Row className="mb-4">
+                <Col lg={24}>
+                  <div className="w-100 text-center px-3">
+                    <div className="bg-primary pt-4 banner pb-5">
+                      <h3 className="text-white text-center">Find Public Company Talent</h3>
+                    </div>
+                    <div className="text-center px-3">
+                      <Input icon="search" prefix={<Icon type="search" className="mx-4" style={{fontSize: 20, fontWeight: "bold", color: '#273773'}}/>} className="header-search" placeholder="Search..."/>
+                    </div>
+                  </div>
+                </Col>
+              </Row>
+              <div className="mx-auto" style={{maxWidth: 1300}}> 
+                <Row gutter={50} className="px-3">
+                  <Col lg={6}>
+                    <div
+                      className="w-100 mb-4 pt-0"
+                      style={{border: 'none'}}
+                    >
+                      <p><b>Search & Filter</b></p>
+                      <FilterForm 
+                        callback={
+                          (keys) => this.getSearchKey(keys)
+                        }
+                      />
+                    </div>
+                  </Col>
+                  <Col lg={18}>
+                    <CompanyTable 
+                      loading={loading}
+                      searchWord={this.state.query.q}
+                      dataSource={secFilings && secFilings.hits.hits}
+                      pagination={{
+                        ...pagination, 
+                        total: secFilings && secFilings.hits.total.value || 100
+                      }}
+                      onChange={this.handleTableChange}
                     />
-                  </Card>
-                </Affix>
-              </Col>
-              <Col lg={17}>
-                <Card
-                  style={{ width: "100%" }}
-                >
-                  <CompanyTable 
-                    loading={loading}
-                    searchWord={this.state.query.q}
-                    dataSource={secFilings && secFilings.hits.hits}
-                    pagination={{
-                      ...pagination, 
-                      total: secFilings && secFilings.hits.total.value || 100
-                    }}
-                    onChange={this.handleTableChange}
-                  />
-                 </Card>
-              </Col>
-            </Row>
+                  </Col>
+                </Row>
+              </div>
+            </>
         }
       </div>
     );
