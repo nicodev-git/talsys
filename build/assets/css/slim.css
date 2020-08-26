@@ -182,9 +182,14 @@ h1, h2, h3, h4, h5, h6 {
   color: #707070;
   margin-bottom: 0.5rem; }
 
+.ant-btn-link,
+label {
+  color: #4A5B8E !important;
+}
+
 p {
   margin-top: 0;
-  color: #707070;
+  color: #4A5B8E;
   margin-bottom: 1rem; }
 
 
