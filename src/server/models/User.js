@@ -1,6 +1,8 @@
 const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
 
+const ROLES = ['admin', 'user']
+
 const UserSchema = new mongoose.Schema({
   email: {
     type: String,
@@ -31,7 +33,12 @@ const UserSchema = new mongoose.Schema({
     stripeSubscriptionId: {
       type: String
     }
-  }
+  },
+  role: {
+    type: String,
+    enum: ROLES,
+    default: 'user'
+  },
 });
 
 UserSchema.methods.hasSamePassword = function (requestedPassword) {

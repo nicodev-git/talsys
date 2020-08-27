@@ -9,7 +9,6 @@ import store from 'client/utils/store';
 import { logoutUser } from 'client/actions/authActions';
 import Header from './Layouts/Header';
 import Footer from './Layouts/Footer';
-import ClientNavbar from './Layouts/ClientNavbar';
 
 
 class PrivateRoute extends Component {

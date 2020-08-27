@@ -31,7 +31,7 @@ const Checkout = ({onCardConfirm}) =>
      token={(token) => onCardConfirm({
       source: token.id,
       description: STRIPE_DESCRIPTION, 
-      amount: UPGRADE_AMOUNT, 
+      amount: UPGRADE_AMOUNT*100, 
       currency: CURRENCY 
      })}
      currency={CURRENCY}

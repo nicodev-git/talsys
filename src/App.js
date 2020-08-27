@@ -13,6 +13,9 @@ import LinkedinCallback from './client/pages/Auth/LinkedinCallback';
 // Private Route
 import PrivateRoute from './client/routes/PrivateRoute';
 
+// Admin Route
+import AdminRoute from './client/routes/AdminRoute';
+
 import checkAuth from './client/utils/checkAuth';
 import ScrollToTop from './client/utils/ScrollToTop';
 import store from './client/utils/store';
@@ -22,6 +25,9 @@ import DashboardPage from './client/pages/App/Dashboard';
 
 // Profile
 import ProfilePage from './client/pages/App/Profile';
+
+// User
+import UserPage from './client/pages/App/User';
 
 import AppLoading from './client/components/Loading';
 
@@ -79,6 +85,7 @@ class App extends Component {
                 <PrivateRoute exact path='/filings' component={DashboardPage} />
                 <PrivateRoute exact path='/main' component={DashboardPage} />
                 <PrivateRoute exact path='/profile' component={ProfilePage} />
+                <AdminRoute exact path='/admin/users' component={UserPage} />
               </Switch>
             </div>
           </ScrollToTop>

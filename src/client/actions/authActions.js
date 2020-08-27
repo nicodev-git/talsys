@@ -78,7 +78,7 @@ export const loginUser = (userData, history) => async dispatch => {
     dispatch(setCurrentUser(decoded));
 
     history.push({
-      pathname: '/filings',
+      pathname: decoded.role === 'admin'?'/admin/users':'/filings',
     });
 
   } catch (error) {
@@ -128,7 +128,7 @@ export const loginWithLinkedin = (code, history) => async dispatch => {
     dispatch(setCurrentUser(decoded));
 
     history.push({
-      pathname: '/filings',
+      pathname: decoded.role === 'admin'?'/admin/users':'/filings',
     });
 
   } catch (error) {

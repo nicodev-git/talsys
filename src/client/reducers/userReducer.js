@@ -1,4 +1,4 @@
-import {GET_USERS} from '../constants/types';
+import {GET_USERS, DELETE_USER} from '../constants/types';
 
 const initialState = {
   loading: true,
@@ -12,6 +12,11 @@ export default (state = initialState, action) => {
         ...state,
         loading: false,
         allUsers: action.payload
+      };
+    case DELETE_USER:
+      return {
+        ...state,
+        allUsers: state.allUsers.filter(user => user.user._id != action.payload)
       };
     default:
       return state;

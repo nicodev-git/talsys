@@ -72,7 +72,7 @@ exports.postClientRegister = async (req, res) => {
 
     const user = await new User({
       email,
-      password,
+      password
     });
     await user.save();
 
@@ -80,7 +80,8 @@ exports.postClientRegister = async (req, res) => {
       user: user.id,
       email,
       lastName,
-      firstName
+      firstName,
+      created_at: new Date()
     }).save();
 
     return res.json({
@@ -144,7 +145,8 @@ exports.postLogin = async (req, res) => {
       {
         userId: user.id,
         profileId: profile.id,
-        username: profile.firstName + " " + profile.lastName
+        username: profile.firstName + " " + profile.lastName,
+        role: user.role
       },
       keys.secretOrKey,
       { expiresIn: '30d' },
@@ -180,16 +182,12 @@ exports.postLinkedinLogin = async (req, res) => {
     client_secret: keys.LINKEDIN_CLIENT_SECRET
   })
 
-  console.log('linkedin ==============>', code, body)
-
   try {
     const { access_token } = await fetchJSON(keys.LINKEDIN_ACCESS_TOKEN, {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body
     })
-
-    console.log('linkedin ==============>', access_token)
 
     const payload = {
       method: 'GET',
@@ -217,6 +215,7 @@ exports.postLinkedinLogin = async (req, res) => {
         email,
         lastName: localizedLastName,
         firstName: localizedFirstName,
+        created_at: new Date()
       }).save();
     }
 
@@ -228,8 +227,6 @@ exports.postLinkedinLogin = async (req, res) => {
       keys.secretOrKey,
       { expiresIn: '30d' },
     );
-
-    console.log('linkedin ==============>', token)
     
     return res.json({
       success: true,
@@ -365,7 +362,8 @@ exports.postRegister = async (req, res) => {
       email,
       lastName,
       firstName,
-      domain: adminDomain
+      domain: adminDomain,
+      created_at: new Date()
     }).save();
 
     adminOrganization.users.push(user.id);
@@ -493,14 +491,10 @@ exports.putUpdateUser = async (req, res) => {
 // @route   DELETE api/users/deleteUser
 // @desc    Delete User
 // @access  Public
-exports.deleteUser = async (req, res) => {
-  const {
-    permissionIds
-  } = req.body;
+exports.deleteUserById = async (req, res) => {
+  const user = req.params.id;
+
   const header = req.headers['authorization'];
-  let adminUserId = null;
-  let adminUserRole = null;
-  let adminProfileId = null;
   if (typeof header !== 'undefined') {
     const bearer = header.split(' ');
     const token = bearer[1];
@@ -533,50 +527,32 @@ exports.deleteUser = async (req, res) => {
     });
   }
   try {
-    permissionIds.forEach(async function (permissionId) {
-      const permission = await Permission.findById(permissionId);
-      const profileId = permission.profile;
-      const organizationId = permission.organization;
+    const profile = await Profile.findOne({ user: req.params.id });
+    const userId = profile.user;
 
-      const profile = await Profile.findById(profileId);
-      const organization = await Organization.findById(organizationId);
-      const userId = profile.user;
+    console.log(profile.id, profile)
+    User.findOneAndRemove(user);
 
-      if (userId !== adminUserId && profile.role !== adminUserRole) {
-        User.findOneAndRemove(userId);
-        User.remove({_id: userId}, function(err,removed) {
-          if (!err) {
-            console.log(userId + " is removed");
-            console.log(removed);
-          }
-        });
-        Profile.findOneAndRemove(profileId);
-        Profile.remove({_id: profileId}, function(err,removed) {
-          if (!err) {
-            console.log(profileId + " is removed");
-            console.log(removed);
-          }
-        });
-        Permission.findOneAndRemove(permissionId);
-        Permission.remove({_id: permissionId}, function(err,removed) {
-          if (!err) {
-            console.log(permissionId + " is removed" );
-            console.log(removed);
-          }
-        });
-        organization.users.pull(userId);
-        organization.save();
-      } else {
-        console.log("Cannot delete admin user " + profile.email);
+    User.remove({_id: user}, function(err,removed) {
+      if (!err) {
+        console.log(user + " is removed");
+        console.log(removed);
       }
     });
-    await stripeLibrary.doUpdateSubscription(adminProfileId);
+
+    Profile.findOneAndRemove(profile.id)
+    Profile.remove({user: user}, function(err,removed) {
+      if (!err) {
+        console.log(user + " is removed");
+        console.log(removed);
+      }
+    });
 
     return res.json({
       success: true,
       alert: {
         title: 'Success!',
-        detail: 'User are Deleted'
+        detail: 'User is Deleted'
       },
     });
   }catch (error) {
@@ -591,12 +567,115 @@ exports.deleteUser = async (req, res) => {
 };
 
 
+// @route   DELETE api/users/deleteUser
+// @desc    Delete User
+// @access  Public
+// exports.deleteUser = async (req, res) => {
+//   const {
+//     permissionIds
+//   } = req.body;
+//   const header = req.headers['authorization'];
+//   let adminUserId = null;
+//   let adminUserRole = null;
+//   let adminProfileId = null;
+//   if (typeof header !== 'undefined') {
+//     const bearer = header.split(' ');
+//     const token = bearer[1];
+//     jwt.verify(token, keys.secretOrKey, function (err, decoded) {
+//       if (err) {
+//         return res.status(403).json({
+//           error: 'Token is invalid and expired'
+//         });
+//       }
+//       adminUserId = decoded.userId;
+//       adminUserRole = decoded.role;
+//       adminProfileId = decoded.profileId;
+//     });
+//   } else {
+//     return res.status(403).json({
+//       alert: {
+//         title: 'Error!',
+//         detail: 'Authorization token not found'
+//       }
+//     });
+//   }
+
+//   if (adminUserId && adminUserRole !== "admin") {
+//     // throw error
+//     return res.status(403).json({
+//       alert: {
+//         title: 'Error!',
+//         detail: 'Unauthorized to add user'
+//       }
+//     });
+//   }
+//   try {
+//     permissionIds.forEach(async function (permissionId) {
+//       const permission = await Permission.findById(permissionId);
+//       const profileId = permission.profile;
+//       const organizationId = permission.organization;
+
+//       const profile = await Profile.findById(profileId);
+//       const organization = await Organization.findById(organizationId);
+//       const userId = profile.user;
+
+//       if (userId !== adminUserId && profile.role !== adminUserRole) {
+//         User.findOneAndRemove(userId);
+//         User.remove({_id: userId}, function(err,removed) {
+//           if (!err) {
+//             console.log(userId + " is removed");
+//             console.log(removed);
+//           }
+//         });
+//         Profile.findOneAndRemove(profileId);
+//         Profile.remove({_id: profileId}, function(err,removed) {
+//           if (!err) {
+//             console.log(profileId + " is removed");
+//             console.log(removed);
+//           }
+//         });
+//         Permission.findOneAndRemove(permissionId);
+//         Permission.remove({_id: permissionId}, function(err,removed) {
+//           if (!err) {
+//             console.log(permissionId + " is removed" );
+//             console.log(removed);
+//           }
+//         });
+//         organization.users.pull(userId);
+//         organization.save();
+//       } else {
+//         console.log("Cannot delete admin user " + profile.email);
+//       }
+//     });
+//     await stripeLibrary.doUpdateSubscription(adminProfileId);
+
+//     return res.json({
+//       success: true,
+//       alert: {
+//         title: 'Success!',
+//         detail: 'User are Deleted'
+//       },
+//     });
+//   }catch (error) {
+//     console.error(error);
+//     return res.status(422).json({
+//       alert: {
+//         title: 'Error!',
+//         detail: 'Server Error: Please try again'
+//       }
+//     });
+//   }
+// };
+
+
 // @route GET api/users/:id
 // @desc Return current user
 // @access Private
 exports.getProfile = async (req, res) => {
   try {
     const profile = await Profile.findOne({ user: req.params.id });
+    const user = await User.findById(req.params.id);
+
     const current_date = moment(new Date())
     const expire_date = moment(profile.created_at).add(10, 'days')
 
@@ -609,7 +688,8 @@ exports.getProfile = async (req, res) => {
     return res.json({
       success: true,
       profile,
-      expired: expired
+      expired: expired,
+      role: user.role
     });
   } catch (error) {
 

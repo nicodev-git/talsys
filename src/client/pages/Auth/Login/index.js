@@ -35,8 +35,9 @@ class NormalLoginForm extends React.Component {
   };
 
   componentDidMount(){
+    const {role}=this.props.auth.user
     if(localStorage.getItem('jwtToken'))
-      this.props.history.push('/filings')
+      this.props.history.push(role === 'admin'?'/admin/users':'/filings')
   }
 
   render() {

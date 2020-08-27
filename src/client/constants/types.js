@@ -27,6 +27,7 @@ export const EDIT_PROFILE = 'EDIT_PROFILE';
 export const UPDATE_PASSWORD = 'UPDATE_PASSWORD';
 
 export const GET_USERS = 'GET_USERS';
+export const DELETE_USER = 'DELETE_USER';
 
 // SEC TYPES
 export const SEC_SEARCH = 'SEC_SEARCH'

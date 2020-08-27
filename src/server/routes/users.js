@@ -28,7 +28,7 @@ router.post('/register/user', userController.postRegister);
 // @route POST api/users/deleteuser
 // @desc Add new user
 // @access Private
-router.post('/deleteuser', userController.deleteUser);
+router.post('/deleteuser/:id', userController.deleteUserById);
 
 // @route   PUT api/users/updateuser
 // @desc    Update User
