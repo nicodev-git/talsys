@@ -80,7 +80,10 @@ export class Dashboard extends Component {
   }
 
   getSearchKey(keys) {
+    let that = this
     let newQuery = Object.assign({}, this.state.query)
+
+    console.log(newQuery)
 
     if(keys.clear) {
       newQuery = INITIAL_QUERY
@@ -88,15 +91,16 @@ export class Dashboard extends Component {
 
       if(keys.entityName) 
         newQuery.entityName = keys.entityName
+      else delete newQuery['entityName']
 
       if(keys.q){
         newQuery.q = keys.q
-      }
+      } else delete newQuery['q']
 
       if(keys.daterange) {
-        newQuery.startdt = keys.daterange[0].format('YYYY-MM-DD')
-        newQuery.enddt = keys.daterange[1].format('YYYY-MM-DD')
-      }
+        newQuery.startdt = keys.daterange[0]?keys.daterange[0].format('YYYY-MM-DD'):"2000-01-01"
+        newQuery.enddt = keys.daterange[1]?keys.daterange[1].format('YYYY-MM-DD'):moment(new Date()).format('YYYY-MM-DD')
+      } 
 
     }
 
@@ -162,7 +166,10 @@ export class Dashboard extends Component {
                       <h3 className="text-white text-center">Find Public Company Talent</h3>
                     </div>
                     <div className="text-center px-3">
-                      <Input icon="search" prefix={<Icon type="search" className="mx-4" style={{fontSize: 20, fontWeight: "bold", color: '#273773'}}/>} className="header-search" placeholder="Search..."/>
+                      <Input icon="search" onKeyPress={(e) => {
+                        if((e.keyCode ? e.keyCode : e.which) === 13)
+                          this.getSearchKey({q: e.target.value})
+                      }} prefix={<Icon type="search" className="mx-4" style={{fontSize: 20, fontWeight: "bold", color: '#273773'}}/>} className="header-search" placeholder="Search..."/>
                     </div>
                   </div>
                 </Col>

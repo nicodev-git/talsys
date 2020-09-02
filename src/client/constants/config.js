@@ -30,7 +30,7 @@ export const SEC_STREAM_API_URL = 'https://api.sec-api.io:3334/all-filings'
 
 
 // STRIPE KEY
-export const STRIPE_PUBLISHABLE = "pk_test_51H7UKEFoYeC8XD3iyHq1HwmHSsTOv3TPELn8VDjmroHZ1gajd8fbo139MXRjo0wrVbaHCQhiCYxd139ZMX8pz6Hg00CugT2Cwc"
+export const STRIPE_PUBLISHABLE = "pk_live_51H7UKEFoYeC8XD3iq4sWiHZSquUyNxe0tGIj8lK4SnJMkvbYWC7fCoFyouIFvE0eKRPVFOqIm6cQrVWRliSmBxYz00rC8ozEAX"
 
 export const COMPANY_NAME = "TelSys"
 export const STRIPE_DESCRIPTION = "Upgrade"
