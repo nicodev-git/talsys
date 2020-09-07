@@ -12,8 +12,6 @@ export const getUsers = () => async dispatch => {
 
 export const deleteUser = (id) => async dispatch => {
   const res = await axios.post(`${API_URL}/api/users/deleteuser/${id}`);
-
-  console.log(res)
   dispatch({
     type: DELETE_USER,
     payload: id

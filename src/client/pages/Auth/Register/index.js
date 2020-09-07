@@ -26,7 +26,7 @@ class RegisterForm extends Component {
 
   componentDidMount() {
     if (localStorage.getItem('jwtToken')) {
-        this.props.history.push('/filings');
+      this.props.history.push('/filings');
     }
   }
 
