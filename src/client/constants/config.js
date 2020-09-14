@@ -1,8 +1,8 @@
 import { getURLWithQueryParams } from "../utils/generic"
 
 // API URL &  HOST URL
-// export const API_URL = 'http://3.20.238.99/';
-export const API_URL = 'http://localhost:5000';
+export const API_URL = 'http://3.20.238.99';
+// export const API_URL = 'http://localhost:5000';
 
 export const HOST_URL = 'http://localhost:3000';
 
