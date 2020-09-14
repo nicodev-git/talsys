@@ -1,5 +1,5 @@
 module.exports = {
-  mongoURI: process.env.MONGO_URI,
+  mongoURI: 'mongodb://localhost:27017/talsys',
   testDB: '',
   secretOrKey: process.env.SECRET_OR_KEY,
   email: process.env.EMAIL,
